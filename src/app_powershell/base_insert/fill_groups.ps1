@@ -12,10 +12,10 @@ function Insert-Groups {
         $group_Sam_name = $group.SamAccountName
         $group_dn = $group.DistinguishedName
 
-        $sql = "INSERT INTO users (id,name,dn) VALUES ('$$group_guid', '$group_Sam_name','$group_dn');"
+        $sql = "INSERT INTO groups (id,name,dn) VALUES ('$group_guid', '$group_Sam_name','$group_dn');"
         & $sqlite3 $sqliteDbPath $sql
     
 
-    Write-Host "Les users sont bien insérés."
+    Write-Host "Le groupe est bien inséré."
 
 }
