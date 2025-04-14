@@ -4,7 +4,7 @@ $sqlite3 = ".\sqlite3.exe"
 
 
 
-function Insert-User {
+function Insert-Users {
     param(
         $filteredUsers
     )
@@ -20,6 +20,6 @@ function Insert-User {
         & $sqlite3 $sqliteDbPath $sql
     }
 
-    Write-Host "Les users sont bien insï¿½rï¿½s."
+    Write-Host "Les users sont bien insérés."
 
 }

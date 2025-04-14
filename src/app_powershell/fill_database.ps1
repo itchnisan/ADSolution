@@ -29,6 +29,7 @@ Measure-Command {
                     [Func[object,bool]]{ param($x) $x.samAccountName -eq $member.samAccountName }
                 )
                 if ($user) {
+                    Insert-link-User-Group -id_group $group.ObjectGUID -id_user $user.ObjectGUID
                     $filteredUsers += [PSCustomObject]@{
                         GroupName       = $group.DistinguishedName
                         GUID            = $user.ObjectGUID
@@ -41,9 +42,8 @@ Measure-Command {
             }
         }
 
-        $csvPath = Join-Path $directoryCsv "$($group.SamAccountName).csv"
-        $filteredUsers | Export-Csv -Path $csvPath -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+        Insert-Users -filteredUsers $filteredUsers 
 
-        Write-Host " → Exporté : $csvPath ($($filteredUsers.Count) utilisateurs)" -ForegroundColor Green
+        
     }
 }
