@@ -1,6 +1,5 @@
-﻿
-$sqliteDbPath = "..\database\base.db"   # base path
-$sqlite3 = ".\sqlite3.exe"                
+﻿$sqliteDbPath = "$PSScriptRoot\..\..\database\base.db"   # base path  
+$sqlite3 = "C:\sqlite\sqlite3.exe"
 
 
 
@@ -16,8 +15,8 @@ function Insert-User {
 
         $sql = "INSERT INTO users (id,sam_acount_name ,name,email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
         & $sqlite3 $sqliteDbPath $sql
-    }
 
-    Write-Host "Les users sont bien insérés."
-
+        Write-Host "Les users sont bien insérés."
 }
+
+    

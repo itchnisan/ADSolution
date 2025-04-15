@@ -1,49 +1,60 @@
 ﻿$global:domainName = "gcm.intra.groupama.fr"
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
-Import-Module "$scriptPath\base_insert\fill_groups.ps1"
-Import-Module "$scriptPath\base_insert\fill_users.ps1"
-Import-Module "$scriptPath\base_insert\fill_link_usr_grp.ps1"
 
+# Include the insert scripts
+. "$scriptPath\base_insert\fill_groups.ps1"
+. "$scriptPath\base_insert\fill_user.ps1"
+. "$scriptPath\base_insert\fill_link_usr_grp.ps1"
 
-#choosen domain change it if we need to take all the tree or other domain
-$targetOuDn = "OU=DOSI,OU=GROUPES_NORMAUX,OU=GROUPES,OU=CENTRE-MANCHE,DC=gcm,DC=intra,DC=groupama,DC=fr"
+# Path to the folder containing exported CSVs
+$csvDirectory = Join-Path -Path $PSScriptRoot -ChildPath "data_to_csv"
 
-#take all ad grp
-$allAdGroups = Get-ADGroup -SearchBase $targetOuDn -Filter * -Server $global:domainName
+# Check if the directory exists
+if (-Not (Test-Path $csvDirectory)) {
+    Write-Host "CSV folder '$csvDirectory' not found." -ForegroundColor Red
+    exit
+}
 
+# Get all CSV files in the folder
+$csvFiles = Get-ChildItem -Path $csvDirectory -Filter "*.csv"
 
 Measure-Command {
-    foreach ($group in $allAdGroups) {
-        Write-Host "Traitement du groupe $($group.Name)..." -ForegroundColor Cyan
+    foreach ($csvFile in $csvFiles) {
+        # The filename (without extension) is the group's SamAccountName
+        $groupName = [System.IO.Path]::GetFileNameWithoutExtension($csvFile.Name)
 
-        #call insert group
-        Insert-Groups -group $group
+        # Get group info from Active Directory
+        $group = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
 
-        #get all menber in a group
-        $rawMembers = Get-ADGroupMember -Identity $group.DistinguishedName -Recursive -Server $global:domainName
-        $alreadySeen = @{}
+        if ($group) {
+            Write-Host "`nProcessing group: $($groupName)" -ForegroundColor Cyan
 
-        foreach ($member in $rawMembers) {
-            if ($member.objectClass -eq 'user' -and -not $alreadySeen.ContainsKey($member.samAccountName)) {
-                $user = [System.Linq.Enumerable]::FirstOrDefault(
-                    $Users_GCM, 
-                    [Func[object,bool]]{ param($x) $x.samAccountName -eq $member.samAccountName }
-                )
-                if ($user) {
+            # Insert group into the database
+            Insert-Groups -group $group
 
-                    #call insert user
-                    Insert-User -user $user 
+            # Read user data from the CSV file
+            $csvData = Import-Csv -Path $csvFile.FullName -Delimiter ';'
 
-                    #call insert in table link user group
-                    Insert-link-User-Group -id_group $group.ObjectGUID -id_user $user.ObjectGUID
-
-                    $alreadySeen[$member.samAccountName] = $true
+            foreach ($entry in $csvData) {
+                # Create a mock user object from CSV data
+                $mockUser = [PSCustomObject]@{
+                    ObjectGUID     = $entry.GUID
+                    SamAccountName = $entry.samAccountName
+                    Name           = $entry.Name
+                    Mail           = $entry.Mail
                 }
+
+                # Insert the user into the database
+                Insert-User -user $mockUser
+
+                # Create the link between the user and the group
+                Insert-link-User-Group -id_group $group.ObjectGUID -id_user $mockUser.ObjectGUID
             }
+
+            Write-Host "→ Group $groupName processed successfully." -ForegroundColor Green
         }
-
-        
-
-        
+        else {
+            Write-Host "⚠ Group '$groupName' not found in Active Directory." -ForegroundColor Yellow
+        }
     }
 }

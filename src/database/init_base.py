@@ -1,7 +1,13 @@
 import sqlite3
+import os
 
-conn = sqlite3.connect("data/base.db")
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(script_dir, "base.db")
+
+conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
+
 
 # Exemple de structure de table (à adapter à ton modèle AD)
 cursor.execute("""
@@ -15,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS groups (
-    id INTEGER PRIMARY KEY ,
+    id TEXT PRIMARY KEY ,
     name TEXT NOT NULL,
     dn TEXT
 );
@@ -23,8 +29,8 @@ CREATE TABLE IF NOT EXISTS groups (
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS user_group (
-    user_id INTEGER,
-    group_id INTEGER,
+    user_id TEXT,
+    group_id TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (group_id) REFERENCES groups(id)
 );

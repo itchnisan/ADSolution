@@ -1,5 +1,5 @@
-$sqliteDbPath = "..\database\base.db"   # base path
-$sqlite3 = ".\sqlite3.exe"                
+$sqliteDbPath = "$PSScriptRoot\..\..\database\base.db"   # base path
+$sqlite3 = "C:\sqlite\sqlite3.exe"          
 
 
 
