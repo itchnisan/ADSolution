@@ -18,6 +18,9 @@ if (-Not (Test-Path $csvDirectory)) {
 # Get all CSV files in the folder
 $csvFiles = Get-ChildItem -Path $csvDirectory -Filter "*.csv"
 
+# Keep track of inserted user GUIDs
+$insertedUsers = @()
+
 Measure-Command {
     foreach ($csvFile in $csvFiles) {
         # The filename (without extension) is the group's SamAccountName
@@ -44,8 +47,12 @@ Measure-Command {
                     Mail           = $entry.Mail
                 }
 
-                # Insert the user into the database
-                Insert-User -user $mockUser
+                # Check if user was already inserted
+                if (-not $insertedUsers.Contains($mockUser.ObjectGUID)) {
+                    # Insert the user into the database
+                    Insert-User -user $mockUser
+                    $insertedUsers += $mockUser.ObjectGUID
+                }
 
                 # Create the link between the user and the group
                 Insert-link-User-Group -id_group $group.ObjectGUID -id_user $mockUser.ObjectGUID
