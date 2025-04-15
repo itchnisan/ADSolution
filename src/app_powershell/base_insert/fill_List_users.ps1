@@ -4,7 +4,7 @@ $sqlite3 = ".\sqlite3.exe"
 
 
 
-function Insert-Users {
+function Insert-List-Users {
     param(
         $filteredUsers
     )
@@ -14,9 +14,9 @@ function Insert-Users {
         $user_Sam_name = $row["samAccountName"]
         $user_name = $row["Name"]  
         $user_email = $row["Mail"]  
-        $user_dn = $row["GroupName"]  #domain
+        
 
-        $sql = "INSERT INTO users (id,sam_acount_name ,name,email,dn) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email','$user_dn');"
+        $sql = "INSERT INTO users (id,sam_acount_name ,name,email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
         & $sqlite3 $sqliteDbPath $sql
     }
 

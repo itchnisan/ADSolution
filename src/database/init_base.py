@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY ,
     sam_acount_name TEXT NOT NULL,
     name TEXT NOT NULL,
-    email TEXT,
-    dn TEXT
+    email TEXT
 );
 """)
 
