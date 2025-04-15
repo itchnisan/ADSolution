@@ -2,16 +2,14 @@
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # Include the insert scripts
-. "$scriptPath\base_insert\fill_groups.ps1"
-. "$scriptPath\base_insert\fill_user.ps1"
-. "$scriptPath\base_insert\fill_link_usr_grp.ps1"
+Import-Module -Name "$scriptPath\base_insert\base_insert.psm1"
 
 # Path to the folder containing exported CSVs
 $csvDirectory = Join-Path -Path $PSScriptRoot -ChildPath "data_to_csv"
 
 # Check if the directory exists
 if (-Not (Test-Path $csvDirectory)) {
-    Write-Host "CSV folder '$csvDirectory' not found." -ForegroundColor Red
+    Write-Error "CSV folder '$csvDirectory' not found." -ForegroundColor Red
     exit
 }
 
@@ -30,7 +28,7 @@ Measure-Command {
         $group = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
 
         if ($group) {
-            Write-Host "`nProcessing group: $($groupName)" -ForegroundColor Cyan
+            
 
             # Insert group into the database
             Insert-Groups -group $group
@@ -58,10 +56,10 @@ Measure-Command {
                 Insert-link-User-Group -id_group $group.ObjectGUID -id_user $mockUser.ObjectGUID
             }
 
-            Write-Host "→ Group $groupName processed successfully." -ForegroundColor Green
+            
         }
         else {
-            Write-Host "⚠ Group '$groupName' not found in Active Directory." -ForegroundColor Yellow
+            Write-Error "⚠ Group '$groupName' not found in Active Directory." -ForegroundColor Yellow
         }
     }
 }
