@@ -2,7 +2,7 @@
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # Include the insert scripts
-Import-Module -Name "$scriptPath\base_insert\base_insert.psm1"
+Import-Module -Name "$scriptPath\base_func\base_func.psm1"
 
 # Path to the folder containing exported CSVs
 $csvDirectory = Join-Path -Path $PSScriptRoot -ChildPath "data_to_csv"
