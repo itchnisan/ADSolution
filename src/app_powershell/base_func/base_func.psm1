@@ -25,7 +25,7 @@ function Insert-List-Users {
         $user_name = $row["Name"]
         $user_email = $row["Mail"]
         
-        $sql = "INSERT INTO users (id, sam_acount_name, name, email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
+        $sql = "INSERT INTO T_ASR_AD_USERS_1 (id, sam_acount_name, name, email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
         & $sqlite3 $sqliteDbPath $sql
     }
 
@@ -52,7 +52,7 @@ function Insert-User {
     $user_name = $user.Name 
     $user_email = $user.Mail
 
-    $sql = "INSERT INTO users (id, sam_acount_name, name, email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
+    $sql = "INSERT INTO T_ASR_AD_USERS_1 (id, sam_acount_name, name, email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
     & $sqlite3 $sqliteDbPath $sql
 
     
@@ -82,7 +82,7 @@ function Insert-Groups {
     $group_Sam_name = $group.SamAccountName
     $group_dn = $group.DistinguishedName
 
-    $sql = "INSERT INTO groups (id, name, dn) VALUES ('$group_guid', '$group_Sam_name','$group_dn');"
+    $sql = "INSERT INTO T_ASR_AD_GROUPS_1 (id, name, dn) VALUES ('$group_guid', '$group_Sam_name','$group_dn');"
     & $sqlite3 $sqliteDbPath $sql
 
     
@@ -112,7 +112,7 @@ function Insert-link-User-Group {
         $id_user
     )
     
-    $sql = "INSERT INTO user_group (user_id, group_id) VALUES ('$id_user', '$id_group');"
+    $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ('$id_user', '$id_group');"
     & $sqlite3 $sqliteDbPath $sql
 
    
@@ -137,7 +137,7 @@ function Delete-User {
         [string]$id_user
     )
 
-    $sql = "DELETE FROM users WHERE id = '$id_user';"
+    $sql = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = '$id_user';"
     & $sqlite3 $sqliteDbPath $sql
 }
 
@@ -161,7 +161,7 @@ function Delete-Group {
         [string]$id_group
     )
 
-    $sql = "DELETE FROM groups WHERE id = '$id_group';"
+    $sql = "DELETE FROM T_ASR_AD_GROUPS_1 WHERE id = '$id_group';"
     & $sqlite3 $sqliteDbPath $sql
 }
 
@@ -189,7 +189,7 @@ function Delete-Link-User-Group {
         [string]$id_user
     )
 
-    $sql = "DELETE FROM user_group WHERE user_id = '$id_user' AND group_id = '$id_group';"
+    $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = '$id_user' AND group_id = '$id_group';"
     & $sqlite3 $sqliteDbPath $sql
 }
 

@@ -31,9 +31,9 @@ function compare_file {
 
         #SQL request for each code
         $query = @"
-         select g.name,u.id,u.email,u.sam_acount_name,u.name from users u 
-                join user_group ug on u.id = ug.user_id
-                join groups g on ug.group_id = g.id
+         select g.name,u.id,u.email,u.sam_acount_name,u.name from T_ASR_AD_USERS_1 u 
+                join T_ASR_AD_USERS_GROUPS_1 ug on u.id = ug.user_id
+                join T_ASR_AD_GROUPS_1 g on ug.group_id = g.id
                 where g.name = '$group.SamAccountName'
 "@
 

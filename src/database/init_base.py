@@ -11,7 +11,7 @@ cursor = conn.cursor()
 
 # Exemple de structure de table (à adapter à ton modèle AD)
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS T_ASR_AD_USERS_1 (
     id TEXT PRIMARY KEY ,
     sam_acount_name TEXT NOT NULL,
     name TEXT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS users (
 """)
 
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS groups (
+CREATE TABLE IF NOT EXISTS T_ASR_AD_GROUPS_1 (
     id TEXT PRIMARY KEY ,
     name TEXT NOT NULL,
     dn TEXT
@@ -28,13 +28,24 @@ CREATE TABLE IF NOT EXISTS groups (
 """)
 
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS user_group (
+CREATE TABLE IF NOT EXISTS T_ASR_AD_USERS_GROUPS_1 (
     user_id TEXT,
     group_id TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (group_id) REFERENCES groups(id)
 );
 """)
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS T_ASR_AD_TRANSCO_1 (
+    codetrans TEXT,
+    group_id TEXT,
+    app_name TEXT,
+    flag_migrate INT,
+    FOREIGN KEY (group_id) REFERENCES groups(id)
+);
+""")
+#FOREIGN KEY (codetrans) REFERENCES TEPHABL1(codetrans),
 
 conn.commit()
 conn.close()
