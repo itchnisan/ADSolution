@@ -9,10 +9,11 @@ conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
 
-# Exemple de structure de table (à adapter à ton modèle AD)
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS T_ASR_AD_USERS_1 (
-    id TEXT PRIMARY KEY ,
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    user_guid TEXT NOT NULL,
     sam_acount_name TEXT NOT NULL,
     name TEXT NOT NULL,
     email TEXT
@@ -21,7 +22,8 @@ CREATE TABLE IF NOT EXISTS T_ASR_AD_USERS_1 (
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS T_ASR_AD_GROUPS_1 (
-    id TEXT PRIMARY KEY ,
+    id INTEGER PRIMARY KEY AUTO_INCREMENT ,
+    group_guid TEXT,
     name TEXT NOT NULL,
     dn TEXT
 );

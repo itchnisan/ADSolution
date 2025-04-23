@@ -1,15 +1,15 @@
 ﻿# Paramètres de connexion SQL
-$server = "GCMSKWG105\GCM_INTRANET"
+$server = "DCMSKWG102\GCM_INTRANET"
 $database = "BINTRA01"
-$outputDir = "$PSScriptRoot\output"
+$global:domainName = "gcm.intra.groupama.fr"
+
+$scriptPath = Split-Path -Parent $PSScriptRoot
 
 # Include the insert scripts
-Import-Module -Name "$scriptPath\base_func\base_func.psm1"
+Import-Module -Name "$scriptPath\base_func\base_func.psm1" 
 
 function compare_file {
-    param (
-        [string]$outputDir
-    )
+
     $connectionString = "Server=$server;Database=$database;Integrated Security=True"
 
     
@@ -18,23 +18,27 @@ function compare_file {
     $identicalGroups = @()
 
     #load the list of group ad
-    $groupList = Get-ChildItem "$PSScriptRoot\"
+    $groupList = Get-ChildItem "$scriptPath\data_to_csv"
 
-
+    
+    
     # Connection to base
     $connection = New-Object System.Data.SqlClient.SqlConnection
     $connection.ConnectionString = $connectionString
     $connection.Open()
 
     foreach ($group in $groupList) {
-            $groupClean = $group.Trim()
-
+       
+       $groupName = [System.IO.Path]::GetFileNameWithoutExtension($group.Name)
+        
+       
         #SQL request for each code
         $query = @"
-         select g.name,u.id,u.email,u.sam_acount_name,u.name from T_ASR_AD_USERS_1 u 
+         SELECT g.name AS group_name, u.id, u.email, u.sam_acount_name, u.name AS user_name
+                from T_ASR_AD_USERS_1 u 
                 join T_ASR_AD_USERS_GROUPS_1 ug on u.id = ug.user_id
                 join T_ASR_AD_GROUPS_1 g on ug.group_id = g.id
-                where g.name = '$group.SamAccountName'
+                where g.name = '$groupName'
 "@
 
         #prepare request + execution + fill table of member
@@ -42,10 +46,30 @@ function compare_file {
         $command.CommandText = $query
         $adapter = New-Object System.Data.SqlClient.SqlDataAdapter $command
         $table = New-Object System.Data.DataTable
-        $adapter.Fill($table) | Out-Null
         
-        $contentGroup = Get-Content $group
-        $contentTable = Get-Content $table
+        $adapter.Fill($table) | Out-Null
+
+
+
+        $contentGroup = Get-Content $group.FullName
+        
+
+        $contentTable = $table | ForEach-Object {
+            "$($_.group_name),$($_.id),$($_.email),$($_.sam_acount_name),$($_.user_name)"
+        }
+
+        if ($table.Rows.Count -eq 0) {
+            Write-Host "Aucun utilisateur trouvé en base pour le groupe $groupName. Insertion depuis le fichier CSV..."
+                $group = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
+                Write-Host $group
+                #Insert-Groups -group $group
+                #Insert-List-Users -filteredUsers $contentGroup
+            continue
+        }
+
+
+        
+       
 
         $diffList = Compare-Object -ReferenceObject $contentGroup -DifferenceObject $contentTable
         foreach ($diff in $diffList) {
