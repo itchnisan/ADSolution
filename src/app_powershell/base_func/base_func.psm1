@@ -1,196 +1,207 @@
-﻿$sqliteDbPath = "$PSScriptRoot\..\..\database\base.db"   # path for the SQLite base 
-$sqlite3 = "C:\sqlite\sqlite3.exe"                        # path for sqlite3.exe
+﻿# Configuration SQL Server
+$server = "DCMSKWG102\GCM_INTRANET"
+$database = "BINTRA01"
+$connectionString = "Server=$server;Database=$database;Integrated Security=True;"
 
-#region Users
-
+#region Fonctions SQL de base
 
 <#
 .SYNOPSIS
-Insert an all list of user 
+Exécute une requête SQL qui retourne une seule valeur (ExecuteScalar)
+
+.PARAMETER query
+Requête SQL à exécuter
+
+.RETOUR
+Résultat unique (première colonne, première ligne)
+#>
+function Invoke-SqlQuery {
+    param ([string]$query)
+
+    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+    $command = $connection.CreateCommand()
+    $command.CommandText = $query
+
+    $connection.Open()
+    $result = $command.ExecuteScalar()
+    $connection.Close()
+
+    return $result
+}
+
+<#
+.SYNOPSIS
+Exécute une requête SQL sans retour (INSERT, UPDATE, DELETE, etc.)
+
+.PARAMETER query
+Requête SQL à exécuter
+#>
+function Invoke-SqlNonQuery {
+    param ([string]$query)
+
+    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+    $command = $connection.CreateCommand()
+    $command.CommandText = $query
+
+    $connection.Open()
+    $command.ExecuteNonQuery()
+    $connection.Close()
+}
+
+#endregion Fonctions SQL
+
+#region Utilisateurs
+
+<#
+.SYNOPSIS
+Insère une liste d'utilisateurs dans la base de données.
 
 .PARAMETER filteredUsers
-List wich contains users with column GUID, samAccountName, Name, Mail.
-
-.EXEMPLE
-Insert-List-Users -filteredUsers $filteredUsers
+Objet DataTable contenant les colonnes : GUID, samAccountName, Name, Mail.
 #>
 function Insert-List-Users {
-    param(
-        $filteredUsers
-    )
-    
-    foreach ($row in $filteredUsers.Rows) {
-        $user_guid = $row["GUID"]
-        $user_Sam_name = $row["samAccountName"]
-        $user_name = $row["Name"]
-        $user_email = $row["Mail"]
-        
-        $sql = "INSERT INTO T_ASR_AD_USERS_1 (id, sam_acount_name, name, email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
-        & $sqlite3 $sqliteDbPath $sql
-    }
+    param($filteredUsers,$groupid)
 
-    
+    Write-Host $filteredUsers
+    foreach ($row in $filteredUsers) {
+    Write-Host $row
+        Insert-User -user @{
+            user_guid      = $row.GUID
+            samAccountName = $row.samAccountName
+            name           = $row.Name
+            email          = $row.Mail
+        }
+        Insert-link-User-Group -user_guid $row.GUID -group_guid $groupid
+    }
 }
 
 <#
 .SYNOPSIS
-Insert a unique user 
+Insère un utilisateur unique.
 
 .PARAMETER user
-Object user wich contains property  ObjectGUID, samAccountName, Name, Mail.
-
-.EXEMPLE
-Insert-User -user $user
+Objet contenant : user_guid, samAccountName, name, email
 #>
 function Insert-User {
-    param(
-        $user
-    )
-   
-    $user_guid = $user.ObjectGUID
-    $user_Sam_name = $user.samAccountName
-    $user_name = $user.Name 
-    $user_email = $user.Mail
+    param($user)
 
-    $sql = "INSERT INTO T_ASR_AD_USERS_1 (id, sam_acount_name, name, email) VALUES ('$user_guid', '$user_Sam_name','$user_name','$user_email');"
-    & $sqlite3 $sqliteDbPath $sql
+    $guid = $user.user_guid
+    $sam = $user.samAccountName
+    $name = $user.name
+    $mail = $user.email
 
-    
+    $sql = @"
+INSERT INTO T_ASR_AD_USERS_1 (user_guid, sam_acount_name, name, email)
+VALUES ('$guid', '$sam', '$name', '$mail');
+"@
+
+    Invoke-SqlNonQuery -query $sql
 }
 
-#endregion Users
-
+#endregion Utilisateurs
 
 #region Groupes
 
 <#
 .SYNOPSIS
-Insert a unique group 
+Insère un groupe unique.
 
 .PARAMETER group
-Object group wich contains : ObjectGUID, SamAccountName, DistinguishedName.
-
-.EXEMPLE
-Insert-Groups -group $group
+Objet contenant : ObjectGUID, SamAccountName, DistinguishedName
 #>
 function Insert-Groups {
-    param(
-        $group
-    )
-    
+    param($group)
+
     $group_guid = $group.ObjectGUID
-    $group_Sam_name = $group.SamAccountName
-    $group_dn = $group.DistinguishedName
+    $sam_name = $group.SamAccountName
+    $dn = $group.DistinguishedName
 
-    $sql = "INSERT INTO T_ASR_AD_GROUPS_1 (id, name, dn) VALUES ('$group_guid', '$group_Sam_name','$group_dn');"
-    & $sqlite3 $sqliteDbPath $sql
+    $sql = @"
+INSERT INTO T_ASR_AD_GROUPS_1 (group_guid, name, dn)
+VALUES ('$group_guid', '$sam_name', '$dn');
+"@
 
-    
+    Invoke-SqlNonQuery -query $sql
 }
 
 #endregion Groupes
 
-
-#region link User-Groupe
+#region Lien Utilisateur-Groupe
 
 <#
 .SYNOPSIS
-Create a link in the table user-group
+Crée un lien utilisateur-groupe via leurs GUIDs.
 
-.PARAMETER id_group
-GUID of the group.
+.PARAMETER user_guid
+GUID utilisateur
 
-.PARAMETER id_user
-GUID of the user.
-
-.EXEMPLE
-Insert-link-User-Group -id_group $groupId -id_user $userId
+.PARAMETER group_guid
+GUID groupe
 #>
 function Insert-link-User-Group {
     param(
-        $id_group,
-        $id_user
+        [string]$user_guid,
+        [string]$group_guid
     )
-    
-    $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ('$id_user', '$id_group');"
-    & $sqlite3 $sqliteDbPath $sql
 
-   
+    $getUserId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
+    $getGroupId = "SELECT id FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
+
+    $user_id = Invoke-SqlQuery -query $getUserId
+    $group_id = Invoke-SqlQuery -query $getGroupId
+
+    if ($user_id -and $group_id) {
+        $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ($user_id, $group_id);"
+        Invoke-SqlNonQuery -query $sql
+    }
 }
 
-#endregion link User-Groupe
+#endregion Lien Utilisateur-Groupe
 
-#region Delete User
+#region Suppression
 
 <#
 .SYNOPSIS
-Delete a user from the database.
-
-.PARAMETER id_user
-GUID of the user.
-
-.EXAMPLE
-Delete-User -id_user $userId
+Supprime un utilisateur par GUID
 #>
 function Delete-User {
-    param(
-        [string]$id_user
-    )
+    param([string]$user_guid)
 
-    $sql = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = '$id_user';"
-    & $sqlite3 $sqliteDbPath $sql
+    $sql = "DELETE FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
+    Invoke-SqlNonQuery -query $sql
 }
-
-#endregion Delete User
-
-
-#region Delete Group
 
 <#
 .SYNOPSIS
-Delete a group from the database.
-
-.PARAMETER id_group
-GUID of the group.
-
-.EXAMPLE
-Delete-Group -id_group $groupId
+Supprime un groupe par GUID
 #>
 function Delete-Group {
-    param(
-        [string]$id_group
-    )
+    param([string]$group_guid)
 
-    $sql = "DELETE FROM T_ASR_AD_GROUPS_1 WHERE id = '$id_group';"
-    & $sqlite3 $sqliteDbPath $sql
+    $sql = "DELETE FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
+    Invoke-SqlNonQuery -query $sql
 }
-
-#endregion Delete Group
-
-
-#region Delete User-Group Link
 
 <#
 .SYNOPSIS
-Delete a user-group link from the table.
-
-.PARAMETER id_group
-GUID of the group.
-
-.PARAMETER id_user
-GUID of the user.
-
-.EXAMPLE
-Delete-Link-User-Group -id_group $groupId -id_user $userId
+Supprime un lien utilisateur-groupe via leurs GUIDs
 #>
 function Delete-Link-User-Group {
     param(
-        [string]$id_group,
-        [string]$id_user
+        [string]$user_guid,
+        [string]$group_guid
     )
 
-    $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = '$id_user' AND group_id = '$id_group';"
-    & $sqlite3 $sqliteDbPath $sql
+    $getUserId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
+    $getGroupId = "SELECT id FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
+
+    $user_id = Invoke-SqlQuery -query $getUserId
+    $group_id = Invoke-SqlQuery -query $getGroupId
+
+    if ($user_id -and $group_id) {
+        $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id AND group_id = $group_id;"
+        Invoke-SqlNonQuery -query $sql
+    }
 }
 
-#endregion Delete User-Group Link
+#endregion Suppression

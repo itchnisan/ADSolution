@@ -6,7 +6,7 @@ $global:domainName = "gcm.intra.groupama.fr"
 $scriptPath = Split-Path -Parent $PSScriptRoot
 
 # Include the insert scripts
-Import-Module -Name "$scriptPath\base_func\base_func.psm1" 
+Import-Module -Name "$scriptPath\base_func\base_func.psm1"  -Force
 
 function compare_file {
 
@@ -60,10 +60,13 @@ function compare_file {
 
         if ($table.Rows.Count -eq 0) {
             Write-Host "Aucun utilisateur trouvé en base pour le groupe $groupName. Insertion depuis le fichier CSV..."
-                $group = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
-                Write-Host $group
-                #Insert-Groups -group $group
-                #Insert-List-Users -filteredUsers $contentGroup
+                $grp = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
+                
+                Insert-Groups -group $grp
+                $csvData = Import-Csv -Path  "$scriptPath\data_to_csv\$group" -Delimiter ';'
+                
+                Insert-List-Users -filteredUsers $csvData -groupid $grp.ObjectGUID
+                
             continue
         }
 
