@@ -77,10 +77,10 @@ function Insert-List-Users {
 
 <#
 .SYNOPSIS
-Insère un utilisateur unique.
+Insert a single user if they don't already exist.
 
 .PARAMETER user
-Objet contenant : user_guid, samAccountName, name, email
+Object containing: user_guid, samAccountName, name, email
 #>
 function Insert-User {
     param($user)
@@ -90,13 +90,17 @@ function Insert-User {
     $name = $user.name
     $mail = $user.email
 
-    $sql = @"
+    if (-not (User-Exists -user_guid $guid)) {
+        $sql = @"
 INSERT INTO T_ASR_AD_USERS_1 (user_guid, sam_acount_name, name, email)
 VALUES ('$guid', '$sam', '$name', '$mail');
 "@
-
-    Invoke-SqlNonQuery -query $sql
+        Invoke-SqlNonQuery -query $sql
+    } else {
+        Write-Host "User with GUID $guid already exists. Skipping insertion."
+    }
 }
+
 
 #endregion Utilisateurs
 
@@ -205,3 +209,23 @@ function Delete-Link-User-Group {
 }
 
 #endregion Suppression
+
+#region Verification
+<#
+.SYNOPSIS
+Check if a user already exists in the database.
+
+.PARAMETER user_guid
+The GUID of the user to check.
+
+.RETURN
+Returns $true if user exists, otherwise $false.
+#>
+function User-Exists {
+    param([string]$user_guid)
+
+    $query = "SELECT COUNT(*) FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
+    $count = Invoke-SqlQuery -query $query
+    return ($count -gt 0)
+}
+#endregion Verification
