@@ -62,16 +62,18 @@ Objet DataTable contenant les colonnes : GUID, samAccountName, Name, Mail.
 function Insert-List-Users {
     param($filteredUsers,$groupid)
 
-    Write-Host $filteredUsers
+    
     foreach ($row in $filteredUsers) {
-    Write-Host $row
+
+    Write-Host "ligne du user " $row -ForegroundColor Red
+
         Insert-User -user @{
             user_guid      = $row.GUID
             samAccountName = $row.samAccountName
             name           = $row.Name
             email          = $row.Mail
-        }
-        Insert-link-User-Group -user_guid $row.GUID -group_guid $groupid
+        } -groupid $groupid
+        
     }
 }
 
@@ -83,21 +85,36 @@ Insert a single user if they don't already exist.
 Object containing: user_guid, samAccountName, name, email
 #>
 function Insert-User {
-    param($user)
+    param(
+        [hashtable]$user,
+        $groupid
+    )
 
     $guid = $user.user_guid
     $sam = $user.samAccountName
     $name = $user.name
     $mail = $user.email
 
+    Write-Host "Insertion de l'utilisateur :" $guid $sam $name $mail -ForegroundColor Magenta
+
     if (-not (User-Exists -user_guid $guid)) {
+        Write-Host "L'utilisateur n'existe pas encore, insertion en base..." -ForegroundColor Green
+
         $sql = @"
 INSERT INTO T_ASR_AD_USERS_1 (user_guid, sam_acount_name, name, email)
 VALUES ('$guid', '$sam', '$name', '$mail');
 "@
+
         Invoke-SqlNonQuery -query $sql
     } else {
-        Write-Host "User with GUID $guid already exists. Skipping insertion."
+        Write-Host "Utilisateur déjà présent : $guid → Aucune insertion." -ForegroundColor Yellow
+    }
+
+    if (-not (User-Group-Link-Exists -user_guid $guid -group_guid $groupid)) {
+        Write-Host "Création du lien utilisateur-groupe pour $guid ↔ $groupid" -ForegroundColor Cyan
+        Insert-link-User-Group -user_guid $guid -group_guid $groupid
+    } else {
+        Write-Host "Liaison user-groupe déjà existante pour $guid et $groupid" -ForegroundColor DarkGray
     }
 }
 
@@ -120,12 +137,16 @@ function Insert-Groups {
     $sam_name = $group.SamAccountName
     $dn = $group.DistinguishedName
 
-    $sql = @"
+    if (-not (Group-Exists -group_guid $group_guid)) {
+        $sql = @"
 INSERT INTO T_ASR_AD_GROUPS_1 (group_guid, name, dn)
 VALUES ('$group_guid', '$sam_name', '$dn');
 "@
-
-    Invoke-SqlNonQuery -query $sql
+        Invoke-SqlNonQuery -query $sql
+    }
+    else {
+        Write-Host "Group $group_guid already exists. Skipping insertion."
+    }
 }
 
 #endregion Groupes
@@ -147,14 +168,16 @@ function Insert-link-User-Group {
         [string]$user_guid,
         [string]$group_guid
     )
-
+    Write-Host "enter in link"
     $getUserId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
     $getGroupId = "SELECT id FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
 
     $user_id = Invoke-SqlQuery -query $getUserId
     $group_id = Invoke-SqlQuery -query $getGroupId
 
+    Write-Host "insert in link" $user_id $group_id
     if ($user_id -and $group_id) {
+    
         $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ($user_id, $group_id);"
         Invoke-SqlNonQuery -query $sql
     }
@@ -224,8 +247,32 @@ Returns $true if user exists, otherwise $false.
 function User-Exists {
     param([string]$user_guid)
 
-    $query = "SELECT COUNT(*) FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
+    $query = "SELECT COUNT(*) FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid' "
+    $count = Invoke-SqlQuery -query $query
+    Write-Host $count 
+    return ($count -gt 0)
+}
+
+function Group-Exists {
+    param([string]$group_guid)
+    $query = "SELECT COUNT(*) FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
     $count = Invoke-SqlQuery -query $query
     return ($count -gt 0)
 }
+
+function User-Group-Link-Exists {
+    param($user_guid, $group_guid)
+
+    $query = @"
+SELECT COUNT(*) 
+FROM T_ASR_AD_USERS_1 u
+JOIN T_ASR_AD_USERS_GROUPS_1 ug ON u.id = ug.user_id
+JOIN T_ASR_AD_GROUPS_1 g ON ug.group_id = g.id
+WHERE u.user_guid = '$user_guid' AND g.group_guid = '$group_guid'
+"@
+
+    $result = Invoke-SqlQuery -query $query
+    return ($result -gt 0)
+}
+
 #endregion Verification
