@@ -1,16 +1,15 @@
-﻿"GroupName";"GUID";"Mail";"samAccountName";"Name"
-"DOSI EtudesBDD Dev";"87dcffb7-390c-4f13-af3b-f518b6122b1d";"frouziere@groupama-cm.fr";"FROUZIERE";"Fabienne ROUZIERE"
-"DOSI EtudesBDD Dev";"987fba76-67f7-4541-9f53-4e4c351ba472";"ncarnet@groupama-cm.fr";"NCARNET";"Nathalie CARNET"
-"DOSI EtudesBDD Dev";"63ffa1b9-1e8d-4e53-9f4e-c76f45d1b117";"brouleau@groupama-cm.fr";"BROULEAU";"Benjamin ROULEAU"
-"DOSI EtudesBDD Dev";"946c9836-3ceb-49be-88e6-a0e90fa9e7d3";"flaurent@groupama-cm.fr";"FLAURENT";"Fabrice LAURENT"
-"DOSI EtudesBDD Dev";"b7038b8b-7b28-4f19-850b-bb89113c3350";"ddohin@groupama-cm.fr";"DDOHIN";"Didier DOHIN"
-"DOSI EtudesBDD Dev";"3430c755-80d1-44f1-9aba-b7066e757dbd";"alemarc@groupama-cm.fr";"ALEMARC";"Antony LE MARC"
-"DOSI EtudesBDD Dev";"d84d92e4-b0c0-4d52-b218-c48816fda4af";"vscribeaux@groupama-cm.fr";"VSCRIBEAUX";"Virginie SCRIBEAUX"
-"DOSI EtudesBDD Dev";"b5d5a85d-039e-46a5-8ae3-57325fff9e18";"jpdrouet@groupama-cm.fr";"JPDROUET";"Jean Pierre DROUET"
-"DOSI EtudesBDD Dev";"d2231f6f-5904-482e-a2a5-cb4bacf456d2";"pfauvy@groupama-cm.fr";"PFAUVY";"Pascale FAUVY"
-"DOSI EtudesBDD Dev";"aa8ed509-c2fb-406e-939e-a0f6f8d1ef65";"mlavaupot@groupama-cm.fr";"MLAVAUPOT";"Manon LAVAUPOT CHAULOUX"
-"DOSI EtudesBDD Dev";"6b465703-5507-434b-a7ec-3ad82fabdc7f";"mathilde.mottay@groupama-cm.fr";"GCMNU4454";"Mathilde MOTTAY"
-"DOSI EtudesBDD Dev";"74e1bcfc-8bf9-48f9-a788-8ebcd58a1f20";"jules.beuvier@groupama-cm.fr";"GCMNU4688";"Jules BEUVIER"
-"DOSI EtudesBDD Dev";"1acad89f-810c-4502-80a3-faa5c9885f1f";"hoa.le-luet@groupama-cm.fr";"GCMNU5178";"Hoa LE LUET"
-"DOSI EtudesBDD Dev";"5802937d-1e1d-460a-b384-763459843d6c";"louison.courtois@groupama-cm.fr";"GCMNU5333";"Louison COURTOIS"
-"DOSI EtudesBDD Dev";"d761e37c-ec9f-4f93-b83b-f541ce7b09eb";"dimitri.scribeaux@groupama-cm.fr";"GCMNU5351";"Dimitri SCRIBEAUX"
+﻿GroupName;GUID;Mail;samAccountName;Name
+DOSI EtudesBDD Dev;87dcffb7-390c-4f13-af3b-f518b6122b1d;frouziere@groupama-cm.fr;FROUZIERE;Fabienne ROUZIERE
+DOSI EtudesBDD Dev;987fba76-67f7-4541-9f53-4e4c351ba472;ncarnet@groupama-cm.fr;NCARNET;Nathalie CARNET
+DOSI EtudesBDD Dev;63ffa1b9-1e8d-4e53-9f4e-c76f45d1b117;brouleau@groupama-cm.fr;BROULEAU;Benjamin ROULEAU
+DOSI EtudesBDD Dev;946c9836-3ceb-49be-88e6-a0e90fa9e7d3;flaurent@groupama-cm.fr;FLAURENT;Fabrice LAURENT
+DOSI EtudesBDD Dev;b7038b8b-7b28-4f19-850b-bb89113c3350;ddohin@groupama-cm.fr;DDOHIN;Didier DOHIN
+DOSI EtudesBDD Dev;3430c755-80d1-44f1-9aba-b7066e757dbd;alemarc@groupama-cm.fr;ALEMARC;Antony LE MARC
+DOSI EtudesBDD Dev;d84d92e4-b0c0-4d52-b218-c48816fda4af;vscribeaux@groupama-cm.fr;VSCRIBEAUX;Virginie SCRIBEAUX
+DOSI EtudesBDD Dev;b5d5a85d-039e-46a5-8ae3-57325fff9e18;jpdrouet@groupama-cm.fr;JPDROUET;Jean Pierre DROUET
+DOSI EtudesBDD Dev;d2231f6f-5904-482e-a2a5-cb4bacf456d2;pfauvy@groupama-cm.fr;PFAUVY;Pascale FAUVY
+DOSI EtudesBDD Dev;aa8ed509-c2fb-406e-939e-a0f6f8d1ef65;mlavaupot@groupama-cm.fr;MLAVAUPOT;Manon LAVAUPOT CHAULOUX
+DOSI EtudesBDD Dev;6b465703-5507-434b-a7ec-3ad82fabdc7f;mathilde.mottay@groupama-cm.fr;GCMNU4454;Mathilde MOTTAY
+DOSI EtudesBDD Dev;74e1bcfc-8bf9-48f9-a788-8ebcd58a1f20;jules.beuvier@groupama-cm.fr;GCMNU4688;Jules BEUVIER
+DOSI EtudesBDD Dev;1acad89f-810c-4502-80a3-faa5c9885f1f;hoa.le-luet@groupama-cm.fr;GCMNU5178;Hoa LE LUET
+DOSI EtudesBDD Dev;d761e37c-ec9f-4f93-b83b-f541ce7b09eb;dimitri.scribeaux@groupama-cm.fr;GCMNU5351;Dimitri SCRIBEAUX

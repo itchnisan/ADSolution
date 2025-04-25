@@ -180,6 +180,8 @@ function Insert-link-User-Group {
     
         $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ($user_id, $group_id);"
         Invoke-SqlNonQuery -query $sql
+    }else{
+        Write-Warning " link non insérer pour :" $user_guid $group_guid
     }
 }
 

@@ -1,44 +1,43 @@
-﻿"GroupName";"GUID";"Mail";"samAccountName";"Name"
-"DOSI site Caen";"60f887e6-3e75-460b-88de-c9ff3d8c524f";"snow_icasi_pilotage@groupama-cm.fr";"SRV_SNOW_001";"Snow DOSI ICASI PILOTAGE SNOW"
-"DOSI site Caen";"63ffa1b9-1e8d-4e53-9f4e-c76f45d1b117";"brouleau@groupama-cm.fr";"BROULEAU";"Benjamin ROULEAU"
-"DOSI site Caen";"67c72875-5f94-4cf3-a09a-2cb18b0205eb";;"VALIDRDP03";"V_VALIDRDP03"
-"DOSI site Caen";"44e53761-82da-47df-827e-c87424e4c764";;"VALIDRDP17";"V_VALIDRDP17"
-"DOSI site Caen";"c40dc930-263d-481e-8ea0-9a372cbf6000";;"VALIDRDP02";"V_VALIDRDP02"
-"DOSI site Caen";"d4aa91d8-8842-4a19-83f6-2d426cffd2ae";;"VALIDRDP22";"V_VALIDRDP22"
-"DOSI site Caen";"25d4d0a4-557f-4097-928f-5623fbd99fc3";;"VALIDRDP05";"V_VALIDRDP05"
-"DOSI site Caen";"7987e718-527d-40d4-94c5-4046e3e37dbe";;"VALIDRDP09";"V_VALIDRDP09"
-"DOSI site Caen";"7df5af0c-90ec-471e-8b89-317a91155372";;"VALIDRDP01";"V_VALIDRDP01"
-"DOSI site Caen";"7fd71aa8-511a-4a32-8108-401bdb5b6b74";;"VALIDRDP04";"V_VALIDRDP04"
-"DOSI site Caen";"687d52b9-38e1-447c-8b1f-067abe8059b2";;"VALIDRDP11";"V_VALIDRDP11"
-"DOSI site Caen";"f63615ad-eee5-4779-838c-b9cc67bb3ecd";;"VALIDRDP15";"V_VALIDRDP15"
-"DOSI site Caen";"8c03eabc-cbec-4e61-90b8-35b1ea40f5c8";;"VALIDRDP16";"V_VALIDRDP16"
-"DOSI site Caen";"a5170162-7bef-4610-8b54-b28ac0886c7e";;"VALIDRDP18";"V_VALIDRDP18"
-"DOSI site Caen";"af64e6b9-8d12-4145-a0ea-3f257d2c996b";;"VALIDRDP19";"V_VALIDRDP19"
-"DOSI site Caen";"fcde028d-8147-4a1d-bf8b-b01c1bc8b5a0";;"VALIDRDP21";"V_VALIDRDP21"
-"DOSI site Caen";"276c34ec-c6a5-4bfb-bcb6-b2e543872b80";"droquier@groupama-cm.fr";"DROQUIER";"Didier ROQUIER"
-"DOSI site Caen";"95e4b519-6b98-472a-bcda-40889611cea4";"cbriard@groupama-cm.fr";"CBRIARD";"Cecile BRIARD"
-"DOSI site Caen";"7db8b2e0-8d94-41e0-a966-37f4412bc229";"iriviere@groupama-cm.fr";"IRIVIERE";"Isabelle RIVIERE"
-"DOSI site Caen";"ef26f399-46dd-40f9-a14a-cb6342029410";"nmonet@groupama-cm.fr";"NMONET";"Nathalie MONET"
-"DOSI site Caen";"58fb49bc-c7f3-4c34-8261-fa69fc2425f1";"emabire@groupama-cm.fr";"EMABIRE";"Emilie MABIRE"
-"DOSI site Caen";"7c8dc4cb-0529-49c3-b79e-5c91bc349d6f";"dmauger@groupama-cm.fr";"DMAUGER";"Deborah MAUGER"
-"DOSI site Caen";"fcf7c67e-6b7c-47d3-ada9-c47adaa4bb0d";"smonteiro@groupama-cm.fr";"SMONTEIRO";"Sandrine MONTEIRO"
-"DOSI site Caen";"19f869f4-395c-4c36-8d26-4722a5ef0ac2";"ckergoat@groupama-cm.fr";"CKERGOAT";"Claire KERGOAT"
-"DOSI site Caen";"347444d0-e559-4657-ab05-247a0ffd60fc";"ilecluse@groupama-cm.fr";"ILECLUSE";"Isabelle LECLUSE"
-"DOSI site Caen";"ffc3f1d1-132f-4c1d-9905-d5377a4e14d1";;"ADKDSOS";"ADKDSOS"
-"DOSI site Caen";"78878b52-4fc6-48ea-98ac-e6744ec1841d";"frichez@groupama-cm.fr";"FRICHEZ";"Frederic RICHEZ"
-"DOSI site Caen";"b5d5a85d-039e-46a5-8ae3-57325fff9e18";"jpdrouet@groupama-cm.fr";"JPDROUET";"Jean Pierre DROUET"
-"DOSI site Caen";"e6a824c2-3583-4ef8-a14b-07b0dccf329c";"oheuze@groupama-cm.fr";"OHEUZE";"Olivier HEUZE"
-"DOSI site Caen";"14a507b2-d959-44dc-9bbb-55d87ab086ce";"vmahieu@groupama-cm.fr";"VMAHIEU";"Valerie MAHIEU"
-"DOSI site Caen";"86d36142-2aea-4a1b-8b79-9115f40439f5";"lbech@groupama-cm.fr";"LBECH";"Loic BECH"
-"DOSI site Caen";"3ac4260a-c04e-46ae-9f57-f95a6fc68c6a";"cgarnier@groupama-cm.fr";"CGARNIER";"Charline GARNIER"
-"DOSI site Caen";"22165a56-804c-48e6-81d8-8cf49cec4b34";"ihervieu@groupama-cm.fr";"IHERVIEU";"Isabelle HERVIEU"
-"DOSI site Caen";"381c3222-1260-4545-86b7-d2f235e8d73a";;"INFOTEL";"S_Infotel"
-"DOSI site Caen";"3cca4613-e431-4c21-b4e1-edf5a19c6fcb";"emilie.avedissian@groupama-cm.fr";"GCMNU3920";"Emilie AVEDISSIAN"
-"DOSI site Caen";"11605f1d-698a-4f1b-b2bf-e73ac016508f";"justine.pilon@groupama-cm.fr";"GCMNU3241";"Justine PILON"
-"DOSI site Caen";"1d99f63d-e2e4-4107-84df-4381e2c44fe1";"francoise.lelouvier-fable@groupama-cm.fr";"GCMNU4198";"Francoise LELOUVIER FABLE"
-"DOSI site Caen";"2d865edb-8544-4b93-9b35-ce10e7fc0e27";"audrey.colombert@groupama-cm.fr";"GCMNU3891";"Audrey COLOMBERT"
-"DOSI site Caen";"6bd102ba-38dd-480d-ac1e-d49ef3a4f5d9";"marine.menut@groupama-cm.fr";"GCMNU4562";"Marine MENUT"
-"DOSI site Caen";"ce614852-17bd-44cd-b669-eaaebff82d57";"yohann.allain@groupama-cm.fr";"GCMNU4652";"Yohann ALLAIN"
-"DOSI site Caen";"0b96bca7-d401-454a-98ca-a19983002117";"salome.menard@groupama-cm.fr";"GCMNU5253";"Salome MENARD"
-"DOSI site Caen";"ef76c712-98d9-47e4-8b04-fd92e77f394c";"thibaud.annequin.ext@groupama-cm.fr";"GCMNU5259";"Thibaud ANNEQUIN"
-"DOSI site Caen";"5802937d-1e1d-460a-b384-763459843d6c";"louison.courtois@groupama-cm.fr";"GCMNU5333";"Louison COURTOIS"
+﻿GroupName;GUID;Mail;samAccountName;Name
+DOSI site Caen;60f887e6-3e75-460b-88de-c9ff3d8c524f;snow_icasi_pilotage@groupama-cm.fr;SRV_SNOW_001;Snow DOSI ICASI PILOTAGE SNOW
+DOSI site Caen;63ffa1b9-1e8d-4e53-9f4e-c76f45d1b117;brouleau@groupama-cm.fr;BROULEAU;Benjamin ROULEAU
+DOSI site Caen;67c72875-5f94-4cf3-a09a-2cb18b0205eb;;VALIDRDP03;V_VALIDRDP03
+DOSI site Caen;44e53761-82da-47df-827e-c87424e4c764;;VALIDRDP17;V_VALIDRDP17
+DOSI site Caen;c40dc930-263d-481e-8ea0-9a372cbf6000;;VALIDRDP02;V_VALIDRDP02
+DOSI site Caen;d4aa91d8-8842-4a19-83f6-2d426cffd2ae;;VALIDRDP22;V_VALIDRDP22
+DOSI site Caen;25d4d0a4-557f-4097-928f-5623fbd99fc3;;VALIDRDP05;V_VALIDRDP05
+DOSI site Caen;7987e718-527d-40d4-94c5-4046e3e37dbe;;VALIDRDP09;V_VALIDRDP09
+DOSI site Caen;7df5af0c-90ec-471e-8b89-317a91155372;;VALIDRDP01;V_VALIDRDP01
+DOSI site Caen;7fd71aa8-511a-4a32-8108-401bdb5b6b74;;VALIDRDP04;V_VALIDRDP04
+DOSI site Caen;687d52b9-38e1-447c-8b1f-067abe8059b2;;VALIDRDP11;V_VALIDRDP11
+DOSI site Caen;f63615ad-eee5-4779-838c-b9cc67bb3ecd;;VALIDRDP15;V_VALIDRDP15
+DOSI site Caen;8c03eabc-cbec-4e61-90b8-35b1ea40f5c8;;VALIDRDP16;V_VALIDRDP16
+DOSI site Caen;a5170162-7bef-4610-8b54-b28ac0886c7e;;VALIDRDP18;V_VALIDRDP18
+DOSI site Caen;af64e6b9-8d12-4145-a0ea-3f257d2c996b;;VALIDRDP19;V_VALIDRDP19
+DOSI site Caen;fcde028d-8147-4a1d-bf8b-b01c1bc8b5a0;;VALIDRDP21;V_VALIDRDP21
+DOSI site Caen;276c34ec-c6a5-4bfb-bcb6-b2e543872b80;droquier@groupama-cm.fr;DROQUIER;Didier ROQUIER
+DOSI site Caen;95e4b519-6b98-472a-bcda-40889611cea4;cbriard@groupama-cm.fr;CBRIARD;Cecile BRIARD
+DOSI site Caen;7db8b2e0-8d94-41e0-a966-37f4412bc229;iriviere@groupama-cm.fr;IRIVIERE;Isabelle RIVIERE
+DOSI site Caen;ef26f399-46dd-40f9-a14a-cb6342029410;nmonet@groupama-cm.fr;NMONET;Nathalie MONET
+DOSI site Caen;58fb49bc-c7f3-4c34-8261-fa69fc2425f1;emabire@groupama-cm.fr;EMABIRE;Emilie MABIRE
+DOSI site Caen;7c8dc4cb-0529-49c3-b79e-5c91bc349d6f;dmauger@groupama-cm.fr;DMAUGER;Deborah MAUGER
+DOSI site Caen;fcf7c67e-6b7c-47d3-ada9-c47adaa4bb0d;smonteiro@groupama-cm.fr;SMONTEIRO;Sandrine MONTEIRO
+DOSI site Caen;19f869f4-395c-4c36-8d26-4722a5ef0ac2;ckergoat@groupama-cm.fr;CKERGOAT;Claire KERGOAT
+DOSI site Caen;347444d0-e559-4657-ab05-247a0ffd60fc;ilecluse@groupama-cm.fr;ILECLUSE;Isabelle LECLUSE
+DOSI site Caen;ffc3f1d1-132f-4c1d-9905-d5377a4e14d1;;ADKDSOS;ADKDSOS
+DOSI site Caen;78878b52-4fc6-48ea-98ac-e6744ec1841d;frichez@groupama-cm.fr;FRICHEZ;Frederic RICHEZ
+DOSI site Caen;b5d5a85d-039e-46a5-8ae3-57325fff9e18;jpdrouet@groupama-cm.fr;JPDROUET;Jean Pierre DROUET
+DOSI site Caen;e6a824c2-3583-4ef8-a14b-07b0dccf329c;oheuze@groupama-cm.fr;OHEUZE;Olivier HEUZE
+DOSI site Caen;14a507b2-d959-44dc-9bbb-55d87ab086ce;vmahieu@groupama-cm.fr;VMAHIEU;Valerie MAHIEU
+DOSI site Caen;86d36142-2aea-4a1b-8b79-9115f40439f5;lbech@groupama-cm.fr;LBECH;Loic BECH
+DOSI site Caen;3ac4260a-c04e-46ae-9f57-f95a6fc68c6a;cgarnier@groupama-cm.fr;CGARNIER;Charline GARNIER
+DOSI site Caen;22165a56-804c-48e6-81d8-8cf49cec4b34;ihervieu@groupama-cm.fr;IHERVIEU;Isabelle HERVIEU
+DOSI site Caen;381c3222-1260-4545-86b7-d2f235e8d73a;;INFOTEL;S_Infotel
+DOSI site Caen;3cca4613-e431-4c21-b4e1-edf5a19c6fcb;emilie.avedissian@groupama-cm.fr;GCMNU3920;Emilie AVEDISSIAN
+DOSI site Caen;11605f1d-698a-4f1b-b2bf-e73ac016508f;justine.pilon@groupama-cm.fr;GCMNU3241;Justine PILON
+DOSI site Caen;1d99f63d-e2e4-4107-84df-4381e2c44fe1;francoise.lelouvier-fable@groupama-cm.fr;GCMNU4198;Francoise LELOUVIER FABLE
+DOSI site Caen;2d865edb-8544-4b93-9b35-ce10e7fc0e27;audrey.colombert@groupama-cm.fr;GCMNU3891;Audrey COLOMBERT
+DOSI site Caen;6bd102ba-38dd-480d-ac1e-d49ef3a4f5d9;marine.menut@groupama-cm.fr;GCMNU4562;Marine MENUT
+DOSI site Caen;ce614852-17bd-44cd-b669-eaaebff82d57;yohann.allain@groupama-cm.fr;GCMNU4652;Yohann ALLAIN
+DOSI site Caen;0b96bca7-d401-454a-98ca-a19983002117;salome.menard@groupama-cm.fr;GCMNU5253;Salome MENARD
+DOSI site Caen;ef76c712-98d9-47e4-8b04-fd92e77f394c;thibaud.annequin.ext@groupama-cm.fr;GCMNU5259;Thibaud ANNEQUIN

@@ -111,34 +111,46 @@ function compare_file {
             continue
         }
 
-        $diffList = Compare-Object -ReferenceObject $csvUsers -DifferenceObject $sqlUsers
+       
 
-        foreach ($diff in $diffList) {
-            $user = $diff.InputObject
+        $diffList = Compare-Object -ReferenceObject $csvUsers -DifferenceObject $sqlUsers -Property GroupName, GUID, Mail, samAccountName, Name -PassThru
 
-            if ($diff.SideIndicator -eq '<=') {
-                Write-Log "User in CSV but not DB: $($user.samAccountName)"
-                Insert-User -user @{
-                    user_guid      = $user.GUID
-                    samAccountName = $user.samAccountName
-                    name           = $user.Name
-                    email          = $user.Mail
-                } -groupid $grp.ObjectGUID
-            }
-            elseif ($diff.SideIndicator -eq '=>') {
-                Write-Log "User in DB but not CSV (deleting): $($user.samAccountName)"
-                Delete-Link-User-Group -user_guid $user.GUID -group_guid $grp.ObjectGUID
-            }
-            else {
-                Write-Log "User needs update: $($user.samAccountName)"
+        # Grouper par GUID
+        $groupedDiffs = $diffList | Group-Object GUID
+
+        foreach ($group in $groupedDiffs) {
+            $entries = $group.Group
+            $guid = $group.Name
+
+            $csvUser = $entries | Where-Object { $_.SideIndicator -eq '<=' }
+            $sqlUser = $entries | Where-Object { $_.SideIndicator -eq '=>' }
+
+            if ($csvUser -and $sqlUser) {
+                # User exists in both but with differences → update
+                Write-Log "User differs, updating: $($csvUser.samAccountName)"
                 Update-User -user @{
-                    user_guid      = $user.GUID
-                    samAccountName = $user.samAccountName
-                    name           = $user.Name
-                    email          = $user.Mail
+                    user_guid      = $csvUser.GUID
+                    samAccountName = $csvUser.samAccountName
+                    name           = $csvUser.Name
+                    email          = $csvUser.Mail
                 }
             }
+            elseif ($csvUser) {
+                Write-Log "User only in CSV, inserting: $($csvUser.samAccountName)"
+                Insert-User -user @{
+                    user_guid      = $csvUser.GUID
+                    samAccountName = $csvUser.samAccountName
+                    name           = $csvUser.Name
+                    email          = $csvUser.Mail
+                } -groupid $grp.ObjectGUID
+            }
+            elseif ($sqlUser) {
+                Write-Log "User only in DB, deleting: $($sqlUser.samAccountName)"
+                Delete-Link-User-Group -user_guid $sqlUser.GUID -group_guid $grp.ObjectGUID
+            }
         }
+
+
     }
 
     $connection.Close()

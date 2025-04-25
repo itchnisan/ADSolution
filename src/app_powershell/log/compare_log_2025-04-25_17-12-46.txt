@@ -1,0 +1,79 @@
+[2025-04-25 17:12:46][INFO] === Script started ===
+[2025-04-25 17:12:46][INFO] Module base_func loaded.
+[2025-04-25 17:12:46][INFO] SQL connection opened.
+[2025-04-25 17:12:46][INFO] Processing group: DOSI ASR DFS
+[2025-04-25 17:12:46][WARN] No users found in DB for DOSI ASR DFS. Inserting from CSV...
+[2025-04-25 17:12:46][INFO] Insert completed for group: DOSI ASR DFS
+[2025-04-25 17:12:46][WARN] No users in CSV for group DOSI ASR DFS. Skipping.
+[2025-04-25 17:12:46][INFO] Processing group: DOSI cadres encadrants
+[2025-04-25 17:12:47][INFO] Processing group: DOSI CDI
+[2025-04-25 17:12:47][INFO] Processing group: DOSI commun
+[2025-04-25 17:12:47][WARN] No users found in DB for DOSI commun. Inserting from CSV...
+[2025-04-25 17:12:47][INFO] Insert completed for group: DOSI commun
+[2025-04-25 17:12:47][WARN] No users in CSV for group DOSI commun. Skipping.
+[2025-04-25 17:12:47][INFO] Processing group: DOSI Coordination
+[2025-04-25 17:12:47][INFO] Processing group: DOSI DGA
+[2025-04-25 17:12:48][INFO] Processing group: DOSI Editique
+[2025-04-25 17:12:48][INFO] Processing group: DOSI Etudes AMOA
+[2025-04-25 17:12:48][INFO] Processing group: DOSI Etudes Assurance
+[2025-04-25 17:12:48][INFO] Processing group: DOSI Etudes CMOP
+[2025-04-25 17:12:49][INFO] Processing group: DOSI Etudes commun exploitation lecture
+[2025-04-25 17:12:49][INFO] Processing group: DOSI Etudes commun exploitation écriture
+[2025-04-25 17:12:49][INFO] Processing group: DOSI Etudes commun GCM lecture
+[2025-04-25 17:12:49][INFO] Processing group: DOSI Etudes commun GCM écriture
+[2025-04-25 17:12:49][INFO] Processing group: DOSI Etudes decisionnel
+[2025-04-25 17:12:50][INFO] Processing group: DOSI Etudes IIS
+[2025-04-25 17:12:50][INFO] Processing group: DOSI Etudes integration communautaire
+[2025-04-25 17:12:51][INFO] Processing group: DOSI Etudes SI RH
+[2025-04-25 17:12:51][INFO] Processing group: DOSI etudes WEBDOC DEV
+[2025-04-25 17:12:51][INFO] Processing group: DOSI etudes WEBDOC PRODUCTION
+[2025-04-25 17:12:52][INFO] Processing group: DOSI etudes WEBDOC RECETTE
+[2025-04-25 17:12:52][INFO] Processing group: DOSI etudes WEBDOC
+[2025-04-25 17:12:52][INFO] Processing group: DOSI Etudes
+[2025-04-25 17:12:52][INFO] Processing group: DOSI EtudesBDD Dev
+[2025-04-25 17:12:53][INFO] Processing group: DOSI EtudesBDD
+[2025-04-25 17:12:53][INFO] Processing group: DOSI Exploitation commun
+[2025-04-25 17:12:53][INFO] Processing group: DOSI Exploitation exploitation
+[2025-04-25 17:12:53][INFO] Processing group: DOSI Exploitation
+[2025-04-25 17:12:54][INFO] Processing group: DOSI Habilitations
+[2025-04-25 17:12:54][INFO] Processing group: DOSI Logistique Commun-autre
+[2025-04-25 17:12:54][INFO] Processing group: DOSI Logistique invites
+[2025-04-25 17:12:54][INFO] Processing group: DOSI Logistique Le Mans
+[2025-04-25 17:12:55][INFO] Processing group: DOSI Logistique
+[2025-04-25 17:12:55][INFO] Processing group: DOSI PCA GCM lecture
+[2025-04-25 17:12:55][INFO] Processing group: DOSI PCA GCM écriture
+[2025-04-25 17:12:56][INFO] Processing group: DOSI restreint DOSI
+[2025-04-25 17:12:56][INFO] Processing group: DOSI SAU
+[2025-04-25 17:12:56][INFO] Processing group: DOSI site Caen
+[2025-04-25 17:12:56][INFO] Processing group: DOSI site Le Mans
+[2025-04-25 17:12:57][INFO] Processing group: DOSI Technique Achats et Parc ACHAT
+[2025-04-25 17:12:57][INFO] Processing group: DOSI Technique Achats et Parc Cout INF GCM
+[2025-04-25 17:12:57][INFO] Processing group: DOSI Technique Achats et Parc PARC
+[2025-04-25 17:12:57][INFO] Processing group: DOSI Technique Achats et Parc
+[2025-04-25 17:12:57][INFO] Processing group: DOSI Technique Administration
+[2025-04-25 17:12:58][INFO] Processing group: DOSI Technique Infrastructure Telecom
+[2025-04-25 17:12:58][INFO] Processing group: DOSI Technique Infrastructures techniques
+[2025-04-25 17:12:58][INFO] Processing group: DOSI Technique pilotage SAP
+[2025-04-25 17:12:58][INFO] Processing group: DOSI Technique
+[2025-04-25 17:12:59][INFO] Processing group: DOSI-Administration ISE
+[2025-04-25 17:12:59][WARN] No users found in DB for DOSI-Administration ISE. Inserting from CSV...
+[2025-04-25 17:12:59][INFO] Insert completed for group: DOSI-Administration ISE
+[2025-04-25 17:12:59][WARN] No users in CSV for group DOSI-Administration ISE. Skipping.
+[2025-04-25 17:12:59][INFO] Processing group: DOSI-Administration Prime
+[2025-04-25 17:12:59][WARN] No users found in DB for DOSI-Administration Prime. Inserting from CSV...
+[2025-04-25 17:12:59][INFO] Insert completed for group: DOSI-Administration Prime
+[2025-04-25 17:12:59][WARN] No users in CSV for group DOSI-Administration Prime. Skipping.
+[2025-04-25 17:12:59][INFO] Processing group: DOSI-Administration Switch
+[2025-04-25 17:12:59][INFO] Processing group: DOSI-Administration WLC
+[2025-04-25 17:13:00][WARN] No users found in DB for DOSI-Administration WLC. Inserting from CSV...
+[2025-04-25 17:13:00][INFO] Insert completed for group: DOSI-Administration WLC
+[2025-04-25 17:13:00][WARN] No users in CSV for group DOSI-Administration WLC. Skipping.
+[2025-04-25 17:13:00][INFO] Processing group: DOSI-ExploitationBDD
+[2025-04-25 17:13:00][INFO] User in DB but not CSV (deleting): GCMNU5333
+[2025-04-25 17:13:00][INFO] User in CSV but not DB: GCMNU5333 3343a579-98aa-462e-a732-3496e11f40d2
+[2025-04-25 17:13:00][INFO] Processing group: DOSI
+[2025-04-25 17:13:01][INFO] Processing group: VMware Administration
+[2025-04-25 17:13:01][INFO] Processing group: WIFI User Authentication
+[2025-04-25 17:13:01][INFO] SQL connection closed.
+[2025-04-25 17:13:01][INFO] Execution Time: 14.9645527 seconds
+[2025-04-25 17:13:01][INFO] === Script ended ===
