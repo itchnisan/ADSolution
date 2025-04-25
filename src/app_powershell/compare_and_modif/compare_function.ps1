@@ -1,29 +1,45 @@
-﻿# SQL connection parameters
+﻿param(
+    [switch]$VerboseOutput
+)
+
+
+# Create log folder and dynamic filename
+$scriptPath = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$logDir = "$scriptPath\log"
+if (-not (Test-Path $logDir)) {
+    New-Item -ItemType Directory -Path $logDir | Out-Null
+}
+
+$timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$logPath = "$logDir\compare_log_$timestamp.txt"
+$VerbosePreference = if ($VerboseOutput) { 'Continue' } else { 'SilentlyContinue' }
+
+function Write-Log {
+    param(
+        [string]$Message,
+        [string]$Level = "INFO"
+    )
+    $now = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$now][$Level] $Message"
+    Add-Content -Path $logPath -Value $logMessage
+    if ($VerboseOutput) {
+        Write-Host $logMessage
+    }
+}
+
+
+# Start logging
+Write-Log "=== Script started ==="
+
+# SQL connection parameters
 $server = "DCMSKWG102\GCM_INTRANET"
 $database = "BINTRA01"
 $global:domainName = "gcm.intra.groupama.fr"
 $csvHeader = "GroupName;GUID;Mail;samAccountName;Name"
 
-# Determine script path dynamically
-$scriptPath = Split-Path -Parent $PSScriptRoot
-
-# Setup log file
-$logFilePath = "$scriptPath\logs\sync_log_$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss').log"
-New-Item -ItemType Directory -Force -Path "$scriptPath\logs" | Out-Null
-
-function Write-Log {
-    param (
-        [string]$message,
-        [string]$level = "INFO"
-    )
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    $logLine = "[$timestamp][$level] $message"
-    Add-Content -Path $logFilePath -Value $logLine
-    Write-Host $logLine
-}
-
 # Load custom module
 Import-Module -Name "$scriptPath\base_func\base_func.psm1" -Force
+Write-Log "Module base_func loaded."
 
 function compare_file {
     $connectionString = "Server=$server;Database=$database;Integrated Security=True"
@@ -31,10 +47,13 @@ function compare_file {
     $connection = New-Object System.Data.SqlClient.SqlConnection
     $connection.ConnectionString = $connectionString
     $connection.Open()
+    Write-Log "SQL connection opened."
 
     foreach ($group in $groupList) {
         $groupName = [System.IO.Path]::GetFileNameWithoutExtension($group.Name)
         Write-Log "Processing group: $groupName"
+
+
 
         $query = @"
          SELECT u.user_guid as GUID, g.name AS GroupName, u.id, u.email as Mail, u.sam_acount_name as samAccountName, u.name AS Name
@@ -51,15 +70,15 @@ function compare_file {
         $adapter.Fill($table) | Out-Null
 
         $contentGroup = Import-Csv -Path $group.FullName -Delimiter ';' -Encoding default
+        $contentTable = $table | Select-Object GroupName,GUID, Mail, samAccountName, Name
 
-        $contentTable = $table | Select-Object GroupName, GUID, Mail, samAccountName, Name
         $grp = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
 
         if ($table.Rows.Count -eq 0) {
-            Write-Log "No users found in DB for group $groupName. Inserting from CSV..."
+            Write-Log "No users found in DB for $groupName. Inserting from CSV..." "WARN"
             Insert-Groups -group $grp
             Insert-List-Users -filteredUsers $contentGroup -groupid $grp.ObjectGUID
-            Write-Log "Users from CSV inserted into DB for group $groupName" "SUCCESS"
+            Write-Log "Insert completed for group: $groupName"
         }
 
         $csvUsers = $contentGroup | ForEach-Object {
@@ -83,11 +102,12 @@ function compare_file {
         }
 
         if (-not $csvUsers) {
-            Write-Log "Aucun utilisateur dans le fichier CSV pour le groupe $groupName" "WARN"
+            Write-Log "No users in CSV for group $groupName. Skipping." "WARN"
             continue
         }
+
         if (-not $sqlUsers) {
-            Write-Log "Aucun utilisateur en base pour le groupe $groupName" "WARN"
+            Write-Log "No users in SQL for group $groupName. Skipping." "WARN"
             continue
         }
 
@@ -95,8 +115,9 @@ function compare_file {
 
         foreach ($diff in $diffList) {
             $user = $diff.InputObject
+
             if ($diff.SideIndicator -eq '<=') {
-                Write-Log "Insertion utilisateur $($user.samAccountName) ($($user.GUID)) dans groupe $groupName"
+                Write-Log "User in CSV but not DB: $($user.samAccountName)"
                 Insert-User -user @{
                     user_guid      = $user.GUID
                     samAccountName = $user.samAccountName
@@ -105,11 +126,11 @@ function compare_file {
                 } -groupid $grp.ObjectGUID
             }
             elseif ($diff.SideIndicator -eq '=>') {
-                Write-Log "Suppression lien utilisateur $($user.samAccountName) ($($user.GUID)) du groupe $groupName"
+                Write-Log "User in DB but not CSV (deleting): $($user.samAccountName)"
                 Delete-Link-User-Group -user_guid $user.GUID -group_guid $grp.ObjectGUID
             }
             else {
-                Write-Log "Mise à jour utilisateur $($user.samAccountName) ($($user.GUID)) dans groupe $groupName"
+                Write-Log "User needs update: $($user.samAccountName)"
                 Update-User -user @{
                     user_guid      = $user.GUID
                     samAccountName = $user.samAccountName
@@ -119,10 +140,15 @@ function compare_file {
             }
         }
     }
+
     $connection.Close()
-    Write-Log "Traitement terminé pour tous les groupes." "INFO"
+    Write-Log "SQL connection closed." 
+}
+ 
+# Measure execution time
+$executionTime = Measure-Command {
+    compare_file
 }
 
-Measure-Command {
-    compare_file | ForEach-Object { Write-Output $_ }
-} 
+Write-Log "Execution Time: $($executionTime.TotalSeconds) seconds" 
+Write-Log "=== Script ended ==="
