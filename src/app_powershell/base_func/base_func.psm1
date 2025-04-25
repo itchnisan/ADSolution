@@ -194,8 +194,23 @@ Supprime un utilisateur par GUID
 function Delete-User {
     param([string]$user_guid)
 
-    $sql = "DELETE FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
-    Invoke-SqlNonQuery -query $sql
+    #get the id from the guid
+    $sqlGetId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
+    $id_user = Invoke-SqlScalar -query $sqlGetId
+
+    if ($null -ne $id_user) {
+        #delete link where user_id = id
+        $sqlDeleteLinks = "DELETE FROM T_ASR_AD_USER_GROUPS WHERE user_id = $id_user;"
+        Invoke-SqlNonQuery -query $sqlDeleteLinks
+
+        #delete
+        $sqlDeleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id_user = $id_user;"
+        Invoke-SqlNonQuery -query $sqlDeleteUser
+
+        Write-Output "Utilisateur supprimé avec succès (id_user = $id_user)"
+    } else {
+        Write-Warning "Aucun utilisateur trouvé pour le GUID : $user_guid"
+    }
 }
 
 <#
@@ -228,7 +243,21 @@ function Delete-Link-User-Group {
     if ($user_id -and $group_id) {
         $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id AND group_id = $group_id;"
         Invoke-SqlNonQuery -query $sql
-    }
+
+        $checkLinks = "SELECT COUNT(*) FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id;"
+        $linkCount = Invoke-SqlNonQuery -query $checkLinks
+
+        if ($linkCount -eq 0) {
+            $deleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = $user_id;"
+            Invoke-SqlNonQuery -query $deleteUser
+            Write-Output "Utilisateur supprimé car plus lié à aucun groupe (id = $user_id)."
+        } else {
+            Write-Output "Lien supprimé, mais utilisateur toujours associé à d'autres groupes."
+        }
+     } else {
+        Write-Warning "Utilisateur ou groupe introuvable."
+     }
+    
 }
 
 #endregion Suppression
@@ -276,3 +305,39 @@ WHERE u.user_guid = '$user_guid' AND g.group_guid = '$group_guid'
 }
 
 #endregion Verification
+
+
+#region Update User
+
+<#
+.SYNOPSIS
+Updates an existing user in the database with new information.
+
+.PARAMETER user
+Object containing: user_guid, samAccountName, name, email
+
+.RETURN
+Updates the user in the database if there are changes.
+#>
+function Update-User {
+    param(
+        [hashtable]$user
+    )
+
+    $guid = $user.user_guid
+    $sam = $user.samAccountName
+    $name = $user.name
+    $mail = $user.email
+
+    Write-Host "Updating user:" $guid $sam $name $mail -ForegroundColor Cyan
+
+    $sql = @"
+UPDATE T_ASR_AD_USERS_1 
+SET sam_acount_name = '$sam', name = '$name', email = '$mail' 
+WHERE user_guid = '$guid';
+"@
+    
+    Invoke-SqlNonQuery -query $sql
+}
+
+#endregion Update User

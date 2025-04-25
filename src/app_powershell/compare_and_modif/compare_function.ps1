@@ -7,26 +7,35 @@ $csvHeader = "GroupName;GUID;Mail;samAccountName;Name"
 # Determine script path dynamically
 $scriptPath = Split-Path -Parent $PSScriptRoot
 
-# Load custom module containing insert/delete functions
+# Setup log file
+$logFilePath = "$scriptPath\logs\sync_log_$(Get-Date -Format 'yyyy-MM-dd_HH-mm-ss').log"
+New-Item -ItemType Directory -Force -Path "$scriptPath\logs" | Out-Null
+
+function Write-Log {
+    param (
+        [string]$message,
+        [string]$level = "INFO"
+    )
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logLine = "[$timestamp][$level] $message"
+    Add-Content -Path $logFilePath -Value $logLine
+    Write-Host $logLine
+}
+
+# Load custom module
 Import-Module -Name "$scriptPath\base_func\base_func.psm1" -Force
 
 function compare_file {
-    # Build SQL connection string
     $connectionString = "Server=$server;Database=$database;Integrated Security=True"
-
-    # Load CSV files representing AD groups
     $groupList = Get-ChildItem "$scriptPath\data_to_csv"
-
-    # Open SQL connection
     $connection = New-Object System.Data.SqlClient.SqlConnection
     $connection.ConnectionString = $connectionString
     $connection.Open()
 
     foreach ($group in $groupList) {
-        # Extract group name from file name
         $groupName = [System.IO.Path]::GetFileNameWithoutExtension($group.Name)
+        Write-Log "Processing group: $groupName"
 
-        # SQL query to retrieve users from database for this group
         $query = @"
          SELECT u.user_guid as GUID, g.name AS GroupName, u.id, u.email as Mail, u.sam_acount_name as samAccountName, u.name AS Name
          FROM T_ASR_AD_USERS_1 u 
@@ -35,51 +44,24 @@ function compare_file {
          WHERE g.name = '$groupName'
 "@
 
-        # Execute SQL query and fill DataTable
         $command = $connection.CreateCommand()
         $command.CommandText = $query
         $adapter = New-Object System.Data.SqlClient.SqlDataAdapter $command
         $table = New-Object System.Data.DataTable
         $adapter.Fill($table) | Out-Null
 
-        # Load CSV content as text
-        # $contentGroup = Get-Content $group.FullName
-
         $contentGroup = Import-Csv -Path $group.FullName -Delimiter ';' -Encoding default
 
-        # Convert DataTable content to text for comparison
-        # Convert SQL result (DataTable) to an array of CSV lines
-        $contentTable = $table  | Select-Object GroupName,GUID, Mail, samAccountName, Name #| ConvertTo-Csv -Delimiter ';' -NoTypeInformation
-        # Get AD group object
-            $grp = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
+        $contentTable = $table | Select-Object GroupName, GUID, Mail, samAccountName, Name
+        $grp = Get-ADGroup -Identity $groupName -Properties SamAccountName, DistinguishedName, ObjectGUID -Server $global:domainName
 
-        # If no users found in DB, insert group and users from CSV
         if ($table.Rows.Count -eq 0) {
-            Write-Host "No users found in DB for group $groupName. Inserting from CSV..."
-
-            
-
-            # Insert group into database
+            Write-Log "No users found in DB for group $groupName. Inserting from CSV..."
             Insert-Groups -group $grp
-
-            # Import CSV content and insert users
-            #$csvData = Import-Csv -Path "$scriptPath\data_to_csv\$group" -Delimiter ';' -Encoding default
             Insert-List-Users -filteredUsers $contentGroup -groupid $grp.ObjectGUID
+            Write-Log "Users from CSV inserted into DB for group $groupName" "SUCCESS"
+        }
 
-
-
-            Write-Host "pas bloquer dans l'insert" -ForegroundColor Cyan
-
-
-            continue
-        }   
-        
-           
-        
-       # write-host "les content  " $contentGroup  -ForegroundColor Magenta
-       # write-host "les content  " $contentTable  -ForegroundColor Red
-
-        # Force un format homogène pour les deux listes
         $csvUsers = $contentGroup | ForEach-Object {
             [PSCustomObject]@{
                 GroupName      = $_.GroupName
@@ -100,20 +82,21 @@ function compare_file {
             }
         }
 
-        # Compare CSV content with DB content
-        #$diffList = Compare-Object -ReferenceObject $contentGroup -DifferenceObject $contentTable
+        if (-not $csvUsers) {
+            Write-Log "Aucun utilisateur dans le fichier CSV pour le groupe $groupName" "WARN"
+            continue
+        }
+        if (-not $sqlUsers) {
+            Write-Log "Aucun utilisateur en base pour le groupe $groupName" "WARN"
+            continue
+        }
+
         $diffList = Compare-Object -ReferenceObject $csvUsers -DifferenceObject $sqlUsers
 
-        write-host "la diff list" -ForegroundColor Magenta
-    
         foreach ($diff in $diffList) {
+            $user = $diff.InputObject
             if ($diff.SideIndicator -eq '<=') {
-                # User present in DB but not in CSV → insert into DB
-                $user = $diff.InputObject
-
-                Write-Host "Ligne différente trouvée :" `
-                    $user.GUID $user.samAccountName $user.Name -ForegroundColor Green
-
+                Write-Log "Insertion utilisateur $($user.samAccountName) ($($user.GUID)) dans groupe $groupName"
                 Insert-User -user @{
                     user_guid      = $user.GUID
                     samAccountName = $user.samAccountName
@@ -122,20 +105,24 @@ function compare_file {
                 } -groupid $grp.ObjectGUID
             }
             elseif ($diff.SideIndicator -eq '=>') {
-                # User present in CSV but not in DB → delete from DB
-                $user = $diff.InputObject
-                #Write-Host $user "insert "
-               #Delete-User -id_user $user.GUID
+                Write-Log "Suppression lien utilisateur $($user.samAccountName) ($($user.GUID)) du groupe $groupName"
+                Delete-Link-User-Group -user_guid $user.GUID -group_guid $grp.ObjectGUID
+            }
+            else {
+                Write-Log "Mise à jour utilisateur $($user.samAccountName) ($($user.GUID)) dans groupe $groupName"
+                Update-User -user @{
+                    user_guid      = $user.GUID
+                    samAccountName = $user.samAccountName
+                    name           = $user.Name
+                    email          = $user.Mail
+                }
             }
         }
     }
-    
-    # Close DB connection
     $connection.Close()
+    Write-Log "Traitement terminé pour tous les groupes." "INFO"
 }
 
-# Measure the execution time of the comparison process
 Measure-Command {
-    $results = compare_file -outputDir $outputDir
-    $results | ForEach-Object { Write-Output $_ }
-}
+    compare_file | ForEach-Object { Write-Output $_ }
+} 
