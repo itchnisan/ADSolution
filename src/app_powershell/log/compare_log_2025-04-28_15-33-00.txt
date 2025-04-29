@@ -1,0 +1,230 @@
+[2025-04-28 15:33:00][INFO] === Script started ===
+[2025-04-28 15:33:00][INFO] Module base_func loaded.
+[2025-04-28 15:33:00][INFO] SQL connection opened.
+[2025-04-28 15:33:00][INFO] Processing group: DOSI ASR DFS
+[2025-04-28 15:33:00][WARN] No users found in DB for DOSI ASR DFS. Inserting from CSV...
+[2025-04-28 15:33:00][INFO] Insert completed for group: DOSI ASR DFS
+[2025-04-28 15:33:00][WARN] No users in CSV for group DOSI ASR DFS. Skipping.
+[2025-04-28 15:33:00][INFO] Processing group: DOSI cadres encadrants
+[2025-04-28 15:33:00][WARN] No users found in DB for DOSI cadres encadrants. Inserting from CSV...
+[2025-04-28 15:33:02][INFO] Insert completed for group: DOSI cadres encadrants
+[2025-04-28 15:33:02][WARN] No users in SQL for group DOSI cadres encadrants. Skipping.
+[2025-04-28 15:33:02][INFO] Processing group: DOSI CDI
+[2025-04-28 15:33:02][WARN] No users found in DB for DOSI CDI. Inserting from CSV...
+[2025-04-28 15:33:03][INFO] Insert completed for group: DOSI CDI
+[2025-04-28 15:33:03][WARN] No users in SQL for group DOSI CDI. Skipping.
+[2025-04-28 15:33:03][INFO] Processing group: DOSI commun
+[2025-04-28 15:33:03][WARN] No users found in DB for DOSI commun. Inserting from CSV...
+[2025-04-28 15:33:03][INFO] Insert completed for group: DOSI commun
+[2025-04-28 15:33:03][WARN] No users in CSV for group DOSI commun. Skipping.
+[2025-04-28 15:33:03][INFO] Processing group: DOSI Coordination
+[2025-04-28 15:33:04][WARN] No users found in DB for DOSI Coordination. Inserting from CSV...
+[2025-04-28 15:33:04][INFO] Insert completed for group: DOSI Coordination
+[2025-04-28 15:33:04][WARN] No users in SQL for group DOSI Coordination. Skipping.
+[2025-04-28 15:33:04][INFO] Processing group: DOSI DGA
+[2025-04-28 15:33:05][WARN] No users found in DB for DOSI DGA. Inserting from CSV...
+[2025-04-28 15:33:08][INFO] Insert completed for group: DOSI DGA
+[2025-04-28 15:33:08][WARN] No users in SQL for group DOSI DGA. Skipping.
+[2025-04-28 15:33:08][INFO] Processing group: DOSI Editique
+[2025-04-28 15:33:08][WARN] No users found in DB for DOSI Editique. Inserting from CSV...
+[2025-04-28 15:33:09][INFO] Insert completed for group: DOSI Editique
+[2025-04-28 15:33:09][WARN] No users in SQL for group DOSI Editique. Skipping.
+[2025-04-28 15:33:09][INFO] Processing group: DOSI Etudes AMOA
+[2025-04-28 15:33:09][WARN] No users found in DB for DOSI Etudes AMOA. Inserting from CSV...
+[2025-04-28 15:33:10][INFO] Insert completed for group: DOSI Etudes AMOA
+[2025-04-28 15:33:10][WARN] No users in SQL for group DOSI Etudes AMOA. Skipping.
+[2025-04-28 15:33:10][INFO] Processing group: DOSI Etudes Assurance
+[2025-04-28 15:33:11][WARN] No users found in DB for DOSI Etudes Assurance. Inserting from CSV...
+[2025-04-28 15:33:13][INFO] Insert completed for group: DOSI Etudes Assurance
+[2025-04-28 15:33:13][WARN] No users in SQL for group DOSI Etudes Assurance. Skipping.
+[2025-04-28 15:33:13][INFO] Processing group: DOSI Etudes CMOP
+[2025-04-28 15:33:14][WARN] No users found in DB for DOSI Etudes CMOP. Inserting from CSV...
+[2025-04-28 15:33:14][INFO] Insert completed for group: DOSI Etudes CMOP
+[2025-04-28 15:33:14][WARN] No users in SQL for group DOSI Etudes CMOP. Skipping.
+[2025-04-28 15:33:14][INFO] Processing group: DOSI Etudes commun exploitation lecture
+[2025-04-28 15:33:14][WARN] No users found in DB for DOSI Etudes commun exploitation lecture. Inserting from CSV...
+[2025-04-28 15:33:17][INFO] Insert completed for group: DOSI Etudes commun exploitation lecture
+[2025-04-28 15:33:17][WARN] No users in SQL for group DOSI Etudes commun exploitation lecture. Skipping.
+[2025-04-28 15:33:17][INFO] Processing group: DOSI Etudes commun exploitation écriture
+[2025-04-28 15:33:17][WARN] No users found in DB for DOSI Etudes commun exploitation écriture. Inserting from CSV...
+[2025-04-28 15:33:23][INFO] Insert completed for group: DOSI Etudes commun exploitation écriture
+[2025-04-28 15:33:23][WARN] No users in SQL for group DOSI Etudes commun exploitation écriture. Skipping.
+[2025-04-28 15:33:23][INFO] Processing group: DOSI Etudes commun GCM lecture
+[2025-04-28 15:33:23][WARN] No users found in DB for DOSI Etudes commun GCM lecture. Inserting from CSV...
+[2025-04-28 15:33:24][INFO] Insert completed for group: DOSI Etudes commun GCM lecture
+[2025-04-28 15:33:24][WARN] No users in SQL for group DOSI Etudes commun GCM lecture. Skipping.
+[2025-04-28 15:33:24][INFO] Processing group: DOSI Etudes commun GCM écriture
+[2025-04-28 15:33:24][WARN] No users found in DB for DOSI Etudes commun GCM écriture. Inserting from CSV...
+[2025-04-28 15:33:25][INFO] Insert completed for group: DOSI Etudes commun GCM écriture
+[2025-04-28 15:33:25][WARN] No users in SQL for group DOSI Etudes commun GCM écriture. Skipping.
+[2025-04-28 15:33:25][INFO] Processing group: DOSI Etudes decisionnel
+[2025-04-28 15:33:25][WARN] No users found in DB for DOSI Etudes decisionnel. Inserting from CSV...
+[2025-04-28 15:33:26][INFO] Insert completed for group: DOSI Etudes decisionnel
+[2025-04-28 15:33:26][WARN] No users in SQL for group DOSI Etudes decisionnel. Skipping.
+[2025-04-28 15:33:26][INFO] Processing group: DOSI Etudes IIS
+[2025-04-28 15:33:27][WARN] No users found in DB for DOSI Etudes IIS. Inserting from CSV...
+[2025-04-28 15:33:31][INFO] Insert completed for group: DOSI Etudes IIS
+[2025-04-28 15:33:31][WARN] No users in SQL for group DOSI Etudes IIS. Skipping.
+[2025-04-28 15:33:31][INFO] Processing group: DOSI Etudes integration communautaire
+[2025-04-28 15:33:31][WARN] No users found in DB for DOSI Etudes integration communautaire. Inserting from CSV...
+[2025-04-28 15:33:34][INFO] Insert completed for group: DOSI Etudes integration communautaire
+[2025-04-28 15:33:34][WARN] No users in SQL for group DOSI Etudes integration communautaire. Skipping.
+[2025-04-28 15:33:34][INFO] Processing group: DOSI Etudes SI RH
+[2025-04-28 15:33:34][WARN] No users found in DB for DOSI Etudes SI RH. Inserting from CSV...
+[2025-04-28 15:33:35][INFO] Insert completed for group: DOSI Etudes SI RH
+[2025-04-28 15:33:35][WARN] No users in SQL for group DOSI Etudes SI RH. Skipping.
+[2025-04-28 15:33:35][INFO] Processing group: DOSI etudes WEBDOC DEV
+[2025-04-28 15:33:35][WARN] No users found in DB for DOSI etudes WEBDOC DEV. Inserting from CSV...
+[2025-04-28 15:33:43][INFO] Insert completed for group: DOSI etudes WEBDOC DEV
+[2025-04-28 15:33:43][WARN] No users in SQL for group DOSI etudes WEBDOC DEV. Skipping.
+[2025-04-28 15:33:43][INFO] Processing group: DOSI etudes WEBDOC PRODUCTION
+[2025-04-28 15:33:43][WARN] No users found in DB for DOSI etudes WEBDOC PRODUCTION. Inserting from CSV...
+[2025-04-28 15:33:56][INFO] Insert completed for group: DOSI etudes WEBDOC PRODUCTION
+[2025-04-28 15:33:56][WARN] No users in SQL for group DOSI etudes WEBDOC PRODUCTION. Skipping.
+[2025-04-28 15:33:56][INFO] Processing group: DOSI etudes WEBDOC RECETTE
+[2025-04-28 15:33:56][WARN] No users found in DB for DOSI etudes WEBDOC RECETTE. Inserting from CSV...
+[2025-04-28 15:34:04][INFO] Insert completed for group: DOSI etudes WEBDOC RECETTE
+[2025-04-28 15:34:04][WARN] No users in SQL for group DOSI etudes WEBDOC RECETTE. Skipping.
+[2025-04-28 15:34:04][INFO] Processing group: DOSI etudes WEBDOC
+[2025-04-28 15:34:04][WARN] No users found in DB for DOSI etudes WEBDOC. Inserting from CSV...
+[2025-04-28 15:34:16][INFO] Insert completed for group: DOSI etudes WEBDOC
+[2025-04-28 15:34:16][WARN] No users in SQL for group DOSI etudes WEBDOC. Skipping.
+[2025-04-28 15:34:16][INFO] Processing group: DOSI Etudes
+[2025-04-28 15:34:16][WARN] No users found in DB for DOSI Etudes. Inserting from CSV...
+[2025-04-28 15:34:28][INFO] Insert completed for group: DOSI Etudes
+[2025-04-28 15:34:28][WARN] No users in SQL for group DOSI Etudes. Skipping.
+[2025-04-28 15:34:28][INFO] Processing group: DOSI EtudesBDD Dev
+[2025-04-28 15:34:28][WARN] No users found in DB for DOSI EtudesBDD Dev. Inserting from CSV...
+[2025-04-28 15:34:29][INFO] Insert completed for group: DOSI EtudesBDD Dev
+[2025-04-28 15:34:29][WARN] No users in SQL for group DOSI EtudesBDD Dev. Skipping.
+[2025-04-28 15:34:29][INFO] Processing group: DOSI EtudesBDD
+[2025-04-28 15:34:30][WARN] No users found in DB for DOSI EtudesBDD. Inserting from CSV...
+[2025-04-28 15:34:30][INFO] Insert completed for group: DOSI EtudesBDD
+[2025-04-28 15:34:30][WARN] No users in SQL for group DOSI EtudesBDD. Skipping.
+[2025-04-28 15:34:30][INFO] Processing group: DOSI Exploitation commun
+[2025-04-28 15:34:30][WARN] No users found in DB for DOSI Exploitation commun. Inserting from CSV...
+[2025-04-28 15:34:40][INFO] Insert completed for group: DOSI Exploitation commun
+[2025-04-28 15:34:40][WARN] No users in SQL for group DOSI Exploitation commun. Skipping.
+[2025-04-28 15:34:40][INFO] Processing group: DOSI Exploitation exploitation
+[2025-04-28 15:34:41][WARN] No users found in DB for DOSI Exploitation exploitation. Inserting from CSV...
+[2025-04-28 15:34:43][INFO] Insert completed for group: DOSI Exploitation exploitation
+[2025-04-28 15:34:43][WARN] No users in SQL for group DOSI Exploitation exploitation. Skipping.
+[2025-04-28 15:34:43][INFO] Processing group: DOSI Exploitation
+[2025-04-28 15:34:43][WARN] No users found in DB for DOSI Exploitation. Inserting from CSV...
+[2025-04-28 15:34:53][INFO] Insert completed for group: DOSI Exploitation
+[2025-04-28 15:34:53][WARN] No users in SQL for group DOSI Exploitation. Skipping.
+[2025-04-28 15:34:53][INFO] Processing group: DOSI Habilitations
+[2025-04-28 15:34:54][WARN] No users found in DB for DOSI Habilitations. Inserting from CSV...
+[2025-04-28 15:35:07][INFO] Insert completed for group: DOSI Habilitations
+[2025-04-28 15:35:07][WARN] No users in SQL for group DOSI Habilitations. Skipping.
+[2025-04-28 15:35:07][INFO] Processing group: DOSI Logistique Commun-autre
+[2025-04-28 15:35:07][WARN] No users found in DB for DOSI Logistique Commun-autre. Inserting from CSV...
+[2025-04-28 15:35:10][INFO] Insert completed for group: DOSI Logistique Commun-autre
+[2025-04-28 15:35:10][WARN] No users in SQL for group DOSI Logistique Commun-autre. Skipping.
+[2025-04-28 15:35:10][INFO] Processing group: DOSI Logistique invites
+[2025-04-28 15:35:10][WARN] No users found in DB for DOSI Logistique invites. Inserting from CSV...
+[2025-04-28 15:35:10][INFO] Insert completed for group: DOSI Logistique invites
+[2025-04-28 15:35:10][WARN] No users in SQL for group DOSI Logistique invites. Skipping.
+[2025-04-28 15:35:10][INFO] Processing group: DOSI Logistique Le Mans
+[2025-04-28 15:35:10][WARN] No users found in DB for DOSI Logistique Le Mans. Inserting from CSV...
+[2025-04-28 15:35:12][INFO] Insert completed for group: DOSI Logistique Le Mans
+[2025-04-28 15:35:12][WARN] No users in SQL for group DOSI Logistique Le Mans. Skipping.
+[2025-04-28 15:35:12][INFO] Processing group: DOSI Logistique
+[2025-04-28 15:35:12][WARN] No users found in DB for DOSI Logistique. Inserting from CSV...
+[2025-04-28 15:35:21][INFO] Insert completed for group: DOSI Logistique
+[2025-04-28 15:35:21][WARN] No users in SQL for group DOSI Logistique. Skipping.
+[2025-04-28 15:35:21][INFO] Processing group: DOSI PCA GCM lecture
+[2025-04-28 15:35:21][WARN] No users found in DB for DOSI PCA GCM lecture. Inserting from CSV...
+[2025-04-28 15:35:22][INFO] Insert completed for group: DOSI PCA GCM lecture
+[2025-04-28 15:35:22][WARN] No users in SQL for group DOSI PCA GCM lecture. Skipping.
+[2025-04-28 15:35:22][INFO] Processing group: DOSI PCA GCM écriture
+[2025-04-28 15:35:22][WARN] No users found in DB for DOSI PCA GCM écriture. Inserting from CSV...
+[2025-04-28 15:35:25][INFO] Insert completed for group: DOSI PCA GCM écriture
+[2025-04-28 15:35:25][WARN] No users in SQL for group DOSI PCA GCM écriture. Skipping.
+[2025-04-28 15:35:25][INFO] Processing group: DOSI restreint DOSI
+[2025-04-28 15:35:26][WARN] No users found in DB for DOSI restreint DOSI. Inserting from CSV...
+[2025-04-28 15:35:33][INFO] Insert completed for group: DOSI restreint DOSI
+[2025-04-28 15:35:33][WARN] No users in SQL for group DOSI restreint DOSI. Skipping.
+[2025-04-28 15:35:33][INFO] Processing group: DOSI SAU
+[2025-04-28 15:35:33][WARN] No users found in DB for DOSI SAU. Inserting from CSV...
+[2025-04-28 15:35:36][INFO] Insert completed for group: DOSI SAU
+[2025-04-28 15:35:36][WARN] No users in SQL for group DOSI SAU. Skipping.
+[2025-04-28 15:35:36][INFO] Processing group: DOSI site Caen
+[2025-04-28 15:35:36][WARN] No users found in DB for DOSI site Caen. Inserting from CSV...
+[2025-04-28 15:35:41][INFO] Insert completed for group: DOSI site Caen
+[2025-04-28 15:35:41][WARN] No users in SQL for group DOSI site Caen. Skipping.
+[2025-04-28 15:35:41][INFO] Processing group: DOSI site Le Mans
+[2025-04-28 15:35:41][WARN] No users found in DB for DOSI site Le Mans. Inserting from CSV...
+[2025-04-28 15:35:47][INFO] Insert completed for group: DOSI site Le Mans
+[2025-04-28 15:35:47][WARN] No users in SQL for group DOSI site Le Mans. Skipping.
+[2025-04-28 15:35:47][INFO] Processing group: DOSI Technique Achats et Parc ACHAT
+[2025-04-28 15:35:47][WARN] No users found in DB for DOSI Technique Achats et Parc ACHAT. Inserting from CSV...
+[2025-04-28 15:35:50][INFO] Insert completed for group: DOSI Technique Achats et Parc ACHAT
+[2025-04-28 15:35:50][WARN] No users in SQL for group DOSI Technique Achats et Parc ACHAT. Skipping.
+[2025-04-28 15:35:50][INFO] Processing group: DOSI Technique Achats et Parc Cout INF GCM
+[2025-04-28 15:35:50][WARN] No users found in DB for DOSI Technique Achats et Parc Cout INF GCM. Inserting from CSV...
+[2025-04-28 15:35:51][INFO] Insert completed for group: DOSI Technique Achats et Parc Cout INF GCM
+[2025-04-28 15:35:51][WARN] No users in SQL for group DOSI Technique Achats et Parc Cout INF GCM. Skipping.
+[2025-04-28 15:35:51][INFO] Processing group: DOSI Technique Achats et Parc PARC
+[2025-04-28 15:35:51][WARN] No users found in DB for DOSI Technique Achats et Parc PARC. Inserting from CSV...
+[2025-04-28 15:35:52][INFO] Insert completed for group: DOSI Technique Achats et Parc PARC
+[2025-04-28 15:35:52][WARN] No users in SQL for group DOSI Technique Achats et Parc PARC. Skipping.
+[2025-04-28 15:35:52][INFO] Processing group: DOSI Technique Achats et Parc
+[2025-04-28 15:35:52][WARN] No users found in DB for DOSI Technique Achats et Parc. Inserting from CSV...
+[2025-04-28 15:35:55][INFO] Insert completed for group: DOSI Technique Achats et Parc
+[2025-04-28 15:35:55][WARN] No users in SQL for group DOSI Technique Achats et Parc. Skipping.
+[2025-04-28 15:35:55][INFO] Processing group: DOSI Technique Administration
+[2025-04-28 15:35:55][WARN] No users found in DB for DOSI Technique Administration. Inserting from CSV...
+[2025-04-28 15:35:58][INFO] Insert completed for group: DOSI Technique Administration
+[2025-04-28 15:35:58][WARN] No users in SQL for group DOSI Technique Administration. Skipping.
+[2025-04-28 15:35:58][INFO] Processing group: DOSI Technique Infrastructure Telecom
+[2025-04-28 15:35:58][WARN] No users found in DB for DOSI Technique Infrastructure Telecom. Inserting from CSV...
+[2025-04-28 15:35:59][INFO] Insert completed for group: DOSI Technique Infrastructure Telecom
+[2025-04-28 15:35:59][WARN] No users in SQL for group DOSI Technique Infrastructure Telecom. Skipping.
+[2025-04-28 15:35:59][INFO] Processing group: DOSI Technique Infrastructures techniques
+[2025-04-28 15:36:00][WARN] No users found in DB for DOSI Technique Infrastructures techniques. Inserting from CSV...
+[2025-04-28 15:36:03][INFO] Insert completed for group: DOSI Technique Infrastructures techniques
+[2025-04-28 15:36:03][WARN] No users in SQL for group DOSI Technique Infrastructures techniques. Skipping.
+[2025-04-28 15:36:03][INFO] Processing group: DOSI Technique pilotage SAP
+[2025-04-28 15:36:03][WARN] No users found in DB for DOSI Technique pilotage SAP. Inserting from CSV...
+[2025-04-28 15:36:07][INFO] Insert completed for group: DOSI Technique pilotage SAP
+[2025-04-28 15:36:07][WARN] No users in SQL for group DOSI Technique pilotage SAP. Skipping.
+[2025-04-28 15:36:07][INFO] Processing group: DOSI Technique
+[2025-04-28 15:36:08][WARN] No users found in DB for DOSI Technique. Inserting from CSV...
+[2025-04-28 15:36:15][INFO] Insert completed for group: DOSI Technique
+[2025-04-28 15:36:15][WARN] No users in SQL for group DOSI Technique. Skipping.
+[2025-04-28 15:36:15][INFO] Processing group: DOSI-Administration ISE
+[2025-04-28 15:36:15][WARN] No users found in DB for DOSI-Administration ISE. Inserting from CSV...
+[2025-04-28 15:36:15][INFO] Insert completed for group: DOSI-Administration ISE
+[2025-04-28 15:36:15][WARN] No users in CSV for group DOSI-Administration ISE. Skipping.
+[2025-04-28 15:36:15][INFO] Processing group: DOSI-Administration Prime
+[2025-04-28 15:36:15][WARN] No users found in DB for DOSI-Administration Prime. Inserting from CSV...
+[2025-04-28 15:36:15][INFO] Insert completed for group: DOSI-Administration Prime
+[2025-04-28 15:36:15][WARN] No users in CSV for group DOSI-Administration Prime. Skipping.
+[2025-04-28 15:36:15][INFO] Processing group: DOSI-Administration Switch
+[2025-04-28 15:36:15][WARN] No users found in DB for DOSI-Administration Switch. Inserting from CSV...
+[2025-04-28 15:36:15][INFO] Insert completed for group: DOSI-Administration Switch
+[2025-04-28 15:36:15][WARN] No users in SQL for group DOSI-Administration Switch. Skipping.
+[2025-04-28 15:36:15][INFO] Processing group: DOSI-Administration WLC
+[2025-04-28 15:36:16][WARN] No users found in DB for DOSI-Administration WLC. Inserting from CSV...
+[2025-04-28 15:36:16][INFO] Insert completed for group: DOSI-Administration WLC
+[2025-04-28 15:36:16][WARN] No users in CSV for group DOSI-Administration WLC. Skipping.
+[2025-04-28 15:36:16][INFO] Processing group: DOSI-ExploitationBDD
+[2025-04-28 15:36:16][WARN] No users found in DB for DOSI-ExploitationBDD. Inserting from CSV...
+[2025-04-28 15:36:17][INFO] Insert completed for group: DOSI-ExploitationBDD
+[2025-04-28 15:36:17][WARN] No users in SQL for group DOSI-ExploitationBDD. Skipping.
+[2025-04-28 15:36:17][INFO] Processing group: DOSI
+[2025-04-28 15:36:17][WARN] No users found in DB for DOSI. Inserting from CSV...
+[2025-04-28 15:36:48][INFO] Insert completed for group: DOSI
+[2025-04-28 15:36:48][WARN] No users in SQL for group DOSI. Skipping.
+[2025-04-28 15:36:48][INFO] Processing group: VMware Administration
+[2025-04-28 15:36:48][WARN] No users found in DB for VMware Administration. Inserting from CSV...
+[2025-04-28 15:36:49][INFO] Insert completed for group: VMware Administration
+[2025-04-28 15:36:49][WARN] No users in SQL for group VMware Administration. Skipping.
+[2025-04-28 15:36:49][INFO] Processing group: WIFI User Authentication
+[2025-04-28 15:36:49][WARN] No users found in DB for WIFI User Authentication. Inserting from CSV...
+[2025-04-28 15:36:51][INFO] Insert completed for group: WIFI User Authentication
+[2025-04-28 15:36:51][WARN] No users in SQL for group WIFI User Authentication. Skipping.
+[2025-04-28 15:36:51][INFO] SQL connection closed.
+[2025-04-28 15:36:51][INFO] Execution Time: 231.3132044 seconds
+[2025-04-28 15:36:51][INFO] === Script ended ===

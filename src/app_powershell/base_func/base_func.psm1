@@ -65,8 +65,6 @@ function Insert-List-Users {
     
     foreach ($row in $filteredUsers) {
 
-    Write-Host "ligne du user " $row -ForegroundColor Red
-
         Insert-User -user @{
             user_guid      = $row.GUID
             samAccountName = $row.samAccountName
@@ -95,10 +93,10 @@ function Insert-User {
     $name = $user.name
     $mail = $user.email
 
-    Write-Host "Insertion de l'utilisateur :" $guid $sam $name $mail -ForegroundColor Magenta
+    Write-Host "Insert of user :" $guid $sam $name $mail -ForegroundColor Magenta
 
     if (-not (User-Exists -user_guid $guid)) {
-        Write-Host "L'utilisateur n'existe pas encore, insertion en base..." -ForegroundColor Green
+        Write-host "user not in DB, insertion in DB ..." $name 
 
         $sql = @"
 INSERT INTO T_ASR_AD_USERS_1 (user_guid, sam_acount_name, name, email)
@@ -145,7 +143,7 @@ VALUES ('$group_guid', '$sam_name', '$dn');
         Invoke-SqlNonQuery -query $sql
     }
     else {
-        Write-Host "Group $group_guid already exists. Skipping insertion."
+        Write-host "Group $group_guid already exists. Skipping insertion."
     }
 }
 
@@ -181,7 +179,7 @@ function Insert-link-User-Group {
         $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ($user_id, $group_id);"
         Invoke-SqlNonQuery -query $sql
     }else{
-        Write-Warning " link non insérer pour :" $user_guid $group_guid
+        Write-Warning " link not insert :" $user_guid $group_guid
     }
 }
 
@@ -198,20 +196,18 @@ function Delete-User {
 
     #get the id from the guid
     $sqlGetId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
-    $id_user = Invoke-SqlScalar -query $sqlGetId
+    $id_user = Invoke-SqlNonQuery -query $sqlGetId
 
     if ($null -ne $id_user) {
-        #delete link where user_id = id
-        $sqlDeleteLinks = "DELETE FROM T_ASR_AD_USER_GROUPS WHERE user_id = $id_user;"
-        Invoke-SqlNonQuery -query $sqlDeleteLinks
+
 
         #delete
         $sqlDeleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id_user = $id_user;"
         Invoke-SqlNonQuery -query $sqlDeleteUser
 
-        Write-Output "Utilisateur supprimé avec succès (id_user = $id_user)"
+        Write-Output "user delete with succes (id_user = $id_user)"
     } else {
-        Write-Warning "Aucun utilisateur trouvé pour le GUID : $user_guid"
+        Write-Warning "no user found for guid : $user_guid"
     }
 }
 
@@ -243,21 +239,25 @@ function Delete-Link-User-Group {
     $group_id = Invoke-SqlQuery -query $getGroupId
 
     if ($user_id -and $group_id) {
+        
         $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id AND group_id = $group_id;"
         Invoke-SqlNonQuery -query $sql
 
         $checkLinks = "SELECT COUNT(*) FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id;"
-        $linkCount = Invoke-SqlNonQuery -query $checkLinks
+        $linkCount = Invoke-SqlQuery -query $checkLinks
 
+      
+
+        Write-Host $linkCount
         if ($linkCount -eq 0) {
             $deleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = $user_id;"
             Invoke-SqlNonQuery -query $deleteUser
-            Write-Output "Utilisateur supprimé car plus lié à aucun groupe (id = $user_id)."
+            Write-Output "user delete because he have 0 link with groups (id = $user_id)."
         } else {
-            Write-Output "Lien supprimé, mais utilisateur toujours associé à d'autres groupes."
+            Write-Output "Link deleted but user still in other groups"
         }
      } else {
-        Write-Warning "Utilisateur ou groupe introuvable."
+        Write-Warning "user or group don't exist"
      }
     
 }
@@ -280,7 +280,6 @@ function User-Exists {
 
     $query = "SELECT COUNT(*) FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid' "
     $count = Invoke-SqlQuery -query $query
-    Write-Host $count 
     return ($count -gt 0)
 }
 
