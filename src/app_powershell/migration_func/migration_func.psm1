@@ -4,16 +4,14 @@ $connectionString = "Server=$server;Database=$database;Integrated Security=True;
 
 $scriptPath = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
-
-
-#region Fonctions SQL de base
+#region SQL Functions
 
 <#
 .SYNOPSIS
-Exécute une requête SQL sans retour (INSERT, UPDATE, DELETE, etc.)
+Executes a SQL command that does not return any result (e.g., INSERT, UPDATE, DELETE).
 
 .PARAMETER query
-Requête SQL à exécuter
+The SQL command to execute.
 #>
 function Invoke-SqlNonQuery {
     param ([string]$query)
@@ -27,124 +25,184 @@ function Invoke-SqlNonQuery {
     $connection.Close()
 }
 
+<#
+.SYNOPSIS
+Executes a SQL command and returns a single scalar result.
 
-#endregion Fonctions SQL
+.PARAMETER query
+The SQL query to execute.
+#>
+function Invoke-SqlQuery {
+    param ([string]$query)
+
+    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+    $command = $connection.CreateCommand()
+    $command.CommandText = $query
+
+    $connection.Open()
+    $result = $command.ExecuteScalar()
+    $connection.Close()
+
+    return $result
+}
+
+#endregion SQL Functions
 
 #region App
 
 <#
 .SYNOPSIS
+Returns the migration flag of a specific application.
 
-
-.PARAMETER 
+.PARAMETER app_name
+The name of the application.
 #>
-
-function App-IsMigrate {
+function Get-AppIsMigrate {
     param([string] $app_name)
-    
-        $sql = @"
-        select flag_migrate from T_ASR_AD_TRANSCO_1 where app_name ='$app_name'
+
+    $sql = @"
+SELECT flag_migrate FROM T_ASR_AD_TRANSCO_1 WHERE app_name = '$app_name'
 "@
 
-        $flag = Invoke-SqlNonQuery -query $sql
+    $flag = Invoke-SqlQuery -query $sql
 
-        return($flag)
+    return $flag
 }
-
-
-
 
 <#
 .SYNOPSIS
+Returns the transaction code (codetrans) for a given application.
 
-
-.PARAMETER 
+.PARAMETER app_name
+The name of the application.
 #>
-
 function Get-CodeTrans {
     param([string] $app_name)
-    
-        $sql = @"
-        select codetrans from T_ASR_AD_TRANSCO_1 where app_name ='$app_name'
+
+    $sql = @"
+SELECT codetrans FROM T_ASR_AD_TRANSCO_1 WHERE app_name = '$app_name'
 "@
 
-        $code = Invoke-SqlNonQuery -query $sql
+    $code = Invoke-SqlQuery -query $sql
 
-        return($code)
+    return $code
 }
+
 #endregion App
 
-
-
-#region user
+#region User
 
 <#
 .SYNOPSIS
+Inserts a user into the TEPHABL1 table.
 
+.PARAMETER codetrans
+The transaction code of the application.
 
-.PARAMETER 
+.PARAMETER user_guid
+The unique identifier of the user.
 #>
+function Add-UserInDB {
+    param(
+        [string] $codetrans,
+        [string] $user_guid
+    )
 
-function Get-StatusUser {
-    param([string] $app_name,
-          [string] $user_guid)
-    
-        $sql = @"
-        select count(*) from T_ASR_AD_TRANSCO_1 transco 
-        join dbo.TEPHABL1 hab on transco.codetrans = hab.CODETRANS
-        where transco.app_name ='$app_name' and hab.IDENTFICHPERS = '$user_guid'
+    Write-Host "Inserting user:" $user_guid -ForegroundColor Magenta
+
+    $sql = @"
+INSERT INTO TEPHABL1 (IDENTFICHPERS, CODETRANS)
+VALUES ('$user_guid', '$codetrans');
 "@
 
-        $count = Invoke-SqlNonQuery -query $sql
-
-        return($count -gt 0)
+    Invoke-SqlNonQuery -query $sql
 }
 
 <#
 .SYNOPSIS
+Checks if a user is already present in the TEPHABL1 table for a given application.
 
+.PARAMETER app_name
+The name of the application.
 
-.PARAMETER 
+.PARAMETER user_guid
+The unique identifier of the user.
 #>
+function Get-StatusUser {
+    param(
+        [string] $app_name,
+        [string] $user_guid
+    )
 
-function Get-UserInAD{
+    $sql = @"
+SELECT COUNT(*) FROM T_ASR_AD_TRANSCO_1 transco
+JOIN dbo.TEPHABL1 hab ON transco.codetrans = hab.CODETRANS
+WHERE transco.app_name = '$app_name' AND hab.IDENTFICHPERS = '$user_guid'
+"@
+
+    $count = Invoke-SqlQuery -query $sql
+
+    return ($count -gt 0)
+}
+
+<#
+.SYNOPSIS
+Checks whether a user is present in any of the exported AD group CSV files.
+
+.PARAMETER user_guid
+The unique identifier of the user.
+#>
+function Get-UserInAD {
     param([string] $user_guid)
-    
 
     $result = 0
     $groupList = Get-ChildItem "$scriptPath\data_to_csv"
-    foreach($group in $groupList){
-        
+    foreach ($group in $groupList) {
         $data = Import-Csv -Path $group.FullName -Delimiter ';' -Encoding default
         $result += $data | Where-Object { $_.GUID -eq $user_guid.ToString() }
-
-
     }
 
-    return($result -gt 0)
+    return ($result -gt 0)
 }
 
+<#
+.SYNOPSIS
+Deletes a user from the database if they are no longer present in the associated AD group.
 
-function Delete-User {
-    param([string]$user_guid)
+.PARAMETER user_guid
+The unique identifier of the user.
 
-    #get the id from the guid
-    $sqlGetId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
-    $id_user = Invoke-SqlNonQuery -query $sqlGetId
+.PARAMETER group
+The group file (CSV) to check against.
+#>
+function Delete-UserIfNotInGroup {
+    param(
+        [string] $user_guid
+    )
 
-    if ($null -ne $id_user) {
-        #delete link where user_id = id
-        $sqlDeleteLinks = "DELETE FROM T_ASR_AD_USER_GROUPS WHERE user_id = $id_user;"
-        Invoke-SqlNonQuery -query $sqlDeleteLinks
+    
 
-        #delete
-        $sqlDeleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id_user = $id_user;"
+    $sql = @"
+SELECT * FROM TEPHABL1 WHERE IDENTFICHPERS = '$user_guid'
+"@
+
+    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+    $command = $connection.CreateCommand()
+    $command.CommandText = $sql
+    $adapter = New-Object System.Data.SqlClient.SqlDataAdapter $command
+    $table = New-Object System.Data.DataTable
+    $adapter.Fill($table) | Out-Null
+    $connection.Close()
+
+    $resultInDB = $table | Where-Object { $_.IDENTFICHPERS -eq $user_guid }
+
+    if (-not(Get-UserInAD -user_guid $user_guid) -and $resultInDB) {
+        $sqlDeleteUser = "DELETE FROM TEPHABL1 WHERE IDENTFICHPERS = '$user_guid';"
         Invoke-SqlNonQuery -query $sqlDeleteUser
 
-        Write-Output "user delete with succes (id_user = $id_user)"
-    } else {
-        Write-Warning "no user found for guid : $user_guid"
+        return 1
     }
+    return 0
 }
 
-#endregion user
+#endregion User

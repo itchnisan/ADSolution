@@ -1,0 +1,178 @@
+AppName;Path;codetrans;Migrate;MotherApp
+[DEV] Correction des anomalies Comptabilité;E:/inetpub/wwwroot/web/intranet/appli/comptaAno;;0;
+[DEV] Indemnisation des élus;E:/inetpub/wwwroot/web/intranet/appli/IndemnisationElus;;0;
+[DEV] Indemnisation des élus (statique);E:/inetpub/wwwroot/web/intranet/appli/IndemnisationElusHtml;;0;
+[DEV] Intégration des données pour COMASCOL;E:/inetpub/wwwroot/web/intranet/appli/Comascol;;0;
+[DEV] Priorisation du stock des actions ISI;E:/inetpub/wwwroot/web/intranet/appli/PriorisationStock;;0;
+[DEV] Suivi de la campagne de fidélisation;E:/inetpub/wwwroot/web/intranet/appli/Suivi_Campagne_Fid;;0;
+Agenda des Elus;E:/inetpub/wwwroot/web/intranet/appli/AgendadesElus;Agen,Age0,Age1,Age2,Age3;0;
+Alimentation du Datamart Kelio GT;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/keliogt;;0;Rh_Applis
+Annuaire des Elus;E:/inetpub/wwwroot/web/intranet/appli/annuaire_des_elus;;0;
+Appel Sourire Fidélité;E:/inetpub/wwwroot/web/intranet/appli/ASC_GCM;Ascx;0;
+Audiences ASR;E:/inetpub/wwwroot/web/intranet/appli/Choume;ausr;0;
+Augmentations Individuelles;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/ai;Ddai,Dda1;0;Rh_Applis
+Automatisation des mises à jour HRO;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/automatisation_maj_hro;;0;Rh_Applis
+Budget Informatique;E:/inetpub/wwwroot/web/intranet/appli/budgetInformatique;bin2,binf;0;
+Campagne - Certificats Mutualistes;E:/inetpub/wwwroot/web/intranet/appli/Accessoires/campagne/Certificats_Mutualistes;;0;
+Carte Verte Sécurisée;E:/inetpub/wwwroot/web/intranet/appli/carte_verte_securisee;Cvsg;0;
+Changement user windows;E:/inetpub/wwwroot/web/intranet/appli/UserWindows;;0;
+Complément signature DocuSign;E:/inetpub/wwwroot/web/intranet/appli/DocuSign;docs;0;
+Compléments données régionales Elus 3.0;E:/inetpub/wwwroot/web/intranet/appli/Mobile3-0;;0;
+Comptabilité Client - Recouvrement;E:/inetpub/wwwroot/web/intranet/appli/Recouvrement;Grev,Recr;0;Comptabilité
+Comptabilité Pilotage;E:/inetpub/wwwroot/web/intranet/appli/ComptaPilotage;Cp00,Cp02;0;Comptabilité
+Comptabilité Puits de données;E:/inetpub/wwwroot/web/intranet/appli/comptatech;ctcm;0;Comptabilité
+Constitution des Tableaux de Bord RH;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/tdbrh;;0;Rh_Applis
+Contrôle des dérogations commerciales;E:/inetpub/wwwroot/web/intranet/appli/Dero_Ctrl;;0;
+Courriers aux Nouveaux Elus;E:/inetpub/wwwroot/web/intranet/appli/CourrierNouveauxElus;;0;
+Courriers aux Nouveaux Sociétaires;E:/inetpub/wwwroot/web/intranet/appli/CourrierNouveauxSocietaires;;0;
+Créances Douteuses;E:/inetpub/wwwroot/web/intranet/appli/ComptaClient;Gcrd,Ccrd;0;
+Darva SIV;E:/inetpub/wwwroot/web/intranet/appli/Darva_SIV;dpf2,dpf3,dpf4;0;
+Datamart SAP;E:/inetpub/wwwroot/web/intranet/appli/datamartSAP;;0;
+DEMACART - Gestion des cartes de démarchage;E:/inetpub/wwwroot/web/intranet/appli/demacart;Dmcc,Dmcs,Dmcf,Dmcr;0;
+Doc'Happy;E:/inetpub/wwwroot/web/intranet/appli/GED;Gedv;0;
+Droits d'accès Intranet;E:/inetpub/wwwroot/web/intranet/appli/InfosIntra;;0;
+Déclaration d'une Souffrance au Travail;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/souffrance;souf;0;Rh_Applis
+Déclaration des Heures IRP;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/heuresmandat;Cir1;0;Rh_Applis
+Echanges Bordereaux Courtiers;E:/inetpub/wwwroot/web/intranet/appli/CourtiersEchanges;Cobo;0;
+Etats présidents CL;E:/inetpub/wwwroot/web/intranet/appli/Etats_Presidents;Cobo;0;
+Explorateur des Répertoires FTP;E:/inetpub/wwwroot/web/intranet/appli/gestFtp;Gftp;0;
+Explorateur des Répertoires Intranet;E:/inetpub/wwwroot/web/intranet/appli/GestFic;Pubu,Pubg;0;
+Explorateur des Répertoires Webdoc;E:/inetpub/wwwroot/web/intranet/appli/Accessoires/explorateur2;Dac0,Dac1;0;
+Extraction des contrats et taux horaires Kelio pour l'ADV;E:/inetpub/wwwroot/web/intranet/appli/Adv_Excel;;0;
+Extraction des données formation LMS;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/lms;;0;Rh_Applis
+Extraction des Elus;E:/inetpub/wwwroot/web/intranet/appli/RequeteElus;;0;
+Extraction des réclamations GRC de plus de 30 jours;E:/inetpub/wwwroot/web/intranet/appli/SG_Reclamations;;0;
+Extraction des sociétaires pour Predict;E:/inetpub/wwwroot/web/intranet/appli/Predict;;0;
+Extraction des Statistiques Téléphonie;E:/inetpub/wwwroot/web/intranet/appli/Extract_DOSI;Eged;0;
+Extraction données salariés pour ServiceNow;E:/inetpub/wwwroot/web/intranet/appli/Prodige;;0;
+Extraction Mensuelle des Sociétaires;E:/inetpub/wwwroot/web/intranet/appli/societaire;;0;
+Extraction Opportunités GRC GPLUS;E:/inetpub/wwwroot/web/intranet/appli/Gplus14_Opty;;0;
+Extraction Sinistralité;E:/inetpub/wwwroot/web/intranet/appli/Sinistralite;;0;
+Extractions Bloctel;E:/inetpub/wwwroot/web/intranet/appli/Bloctel;;0;
+Extractions Structure pour OCEAN;E:/inetpub/wwwroot/web/intranet/appli/Ocean_Structure;;0;
+Favoris / Accueil DDEV;E:/inetpub/wwwroot/web/intranet/appli/Favoris_Ddev;Lidv,Lida;0;
+Favoris MyGCM;E:/inetpub/wwwroot/web/intranet/appli/Favoris;Link,Lina;0;
+Fiche d'Informations Salarié(e)s;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/ficheinfo;FInf,Fin1,FIn1 ;0;Rh_Applis
+Fiche de Liaison;E:/inetpub/wwwroot/web/intranet/appli/logistique_applis;Lflp;0;
+Fluides;E:/inetpub/wwwroot/web/intranet/appli/Fluides_Energie;Fflu;0;
+Gestion De L'autonomie De Publication;E:/inetpub/wwwroot/web/intranet/appli/Admin_Publiu;Pubu;0;
+Gestion des applications;E:/inetpub/wwwroot/web/intranet/appli/Applications;Appl;0;
+Gestion des Ayants-Droit en Santé Collectives;E:/inetpub/wwwroot/web/intranet/appli/SanteCollective_AyantsDroits;sant;0;
+Gestion des données des Agences;E:/inetpub/wwwroot/web/intranet/appli/GestionPvGCM;Gag1;0;
+Gestion des Environnements;E:/inetpub/wwwroot/web/intranet/appli/EnvironnementCommunautaire;Envc;0;
+Gestion des Garages AutoPresto et DIAC;E:/inetpub/wwwroot/web/intranet/appli/VisaPilotage;Vgag,Vgap;0;
+Gestion des Habilitations aux Habilitations ASR;E:/inetpub/wwwroot/web/intranet/appli/Habilitations;Habl;0;
+Gestion des Modèles de Courriers Oasis;E:/inetpub/wwwroot/web/intranet/appli/courriers_Oasis;tsa1,tsa2,Coaw,Coas;0;
+Gestion Des Photos Du Trombinoscope;E:/inetpub/wwwroot/web/intranet/appli/TrombiPhoto;Trop;0;
+Gestion des Postes et du Recrutement;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/recrutement;Gesr,Rec1,Rec2,Rec3,Rec5,Geso,Orcg,Orst;0;Rh_Applis
+Gestion du bandeau SAU;E:/inetpub/wwwroot/web/intranet/appli/SAUBandeau;Dan0;0;
+Gestion du menu des applications intranet;E:/inetpub/wwwroot/web/intranet/appli/GeneMenuAppli;Gmap;0;
+Gestion du provisioning;E:/inetpub/wwwroot/web/intranet/appli/Provisioning;Pprv;0;
+Gestion et Indemnisation des Elus;E:/inetpub/wwwroot/web/intranet/appli/gestiondeselus;Gelu,Geiu,Gecc;0;
+Gestion Groupes Utilisateurs;E:/inetpub/wwwroot/web/intranet/appli/GestGroupeU;grpu,hsva;0;
+Gestion logistique des Agences;E:/inetpub/wwwroot/web/intranet/appli/GestionPointsVente;Gpv,Gpv1;0;
+Gestion messagerie Intranet;E:/inetpub/wwwroot/web/intranet/appli/MailArchive;mssg;0;
+GFR AG CL;E:/inetpub/wwwroot/web/intranet/appli/GFRAGCL;;0;
+GFR Extranet - Partenaires Santé;E:/inetpub/wwwroot/web/intranet/appli/Accessoires/partenaires;;0;
+GHI - Gestion des Habilitations Informatiques;E:/inetpub/wwwroot/web/intranet/appli/GHI;Ighi,Ighp;0;
+Géonosis;E:/inetpub/wwwroot/web/intranet/appli/Geonosis;;0;
+Industrialisation Santé;E:/inetpub/wwwroot/web/intranet/appli/Indus_sante;;0;
+Informations Administration des Ventes;E:/inetpub/wwwroot/web/intranet/appli/InfosAdmVente;;0;
+Initialisation Code Utilisateur;E:/inetpub/wwwroot/web/intranet/appli/InitIdent;Hini;0;
+Interrogation des MPD SIGMA;E:/inetpub/wwwroot/web/intranet/appli/MPDSigma;mpds,Mpda;0;
+Ipilot;E:/inetpub/wwwroot/web/intranet/appli/IPilot_GCM;ipii;0;
+Le Référentiel Webfocus;E:/inetpub/wwwroot/web/intranet/appli/RefWebFocus;rfwf;0;
+Liste des personnes sans photo;E:/inetpub/wwwroot/web/intranet/appli/Passeport_GCMV1;pafc,parh;0;
+Listes de diffusions Lotus Notes;E:/inetpub/wwwroot/web/intranet/appli/LotusNotes_Groupes;;0;
+Localiser une personne;E:/inetpub/wwwroot/web/intranet/appli/localiserPersonne;;0;
+Mallettes de Secours;E:/inetpub/wwwroot/web/intranet/appli/Rh_Applis/mallettesecours;Mse1,Msec;0;Rh_Applis
+Meta-Dictionnaire DataWareHouse;E:/inetpub/wwwroot/web/intranet/appli/DataWareHouse;DWMD;0;
+Mise à jour Agrégat EGC;E:/inetpub/wwwroot/web/intranet/appli/DWH;mdwh;0;
+Mise à jour de l'AOG;E:/inetpub/wwwroot/web/intranet/appli/AOG;;0;
+Notes de Frais & Sessions LMS;E:/inetpub/wwwroot/web/intranet/appli/NDF;Dnfa,Dnfd,Dnff;0;
+Oasis Extensions;E:/inetpub/wwwroot/web/intranet/appli/Oasis_Extensions;;0;Oasis
+Oasis Pilotage Actions;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/actions;Oagd;0;Oasis
+Oasis Pilotage Auto GSP;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/autogsp;Oaag;0;Oasis
+Oasis Pilotage Auto-Presto;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/autopresto;Oaap;0;Oasis
+Oasis Pilotage DAB;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/dab;Oadb;0;Oasis
+Oasis Pilotage Demandes GRC;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/demandes;Oacd;0;Oasis
+Oasis Pilotage Evénements;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/evenements;Oasy;0;Oasis
+Oasis Pilotage Experts Auto TMA;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/autotma-experts;Oaxp;0;Oasis
+Oasis Pilotage IRSA5;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/irsa5-courriers;;0;Oasis
+Oasis Pilotage Prestataires;E:/inetpub/wwwroot/web/intranet/appli/OASIS_Pilotage_Prestataires;;0;Oasis
+Oasis Pilotage Qualité IDA;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/ida-qualite;Oaqi;0;Oasis
+Oasis Pilotage Qualité IRCA;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/irca-qualite;Oaqr;0;Oasis
+Oasis Pilotage Recours DC;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/recours-dc;Oarc;0;Oasis
+Oasis Pilotage Requêtes IDA;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/ida-requetes;Oari;0;Oasis
+Oasis Pilotage SMS;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/courriers-sms;Oass;0;Oasis
+Oasis Productivité;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/productivite;Oase;0;Oasis
+Oasis Statistiques Auto GSP;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/autogsp-stats;Oabt;0;Oasis
+Oasis Statistiques Auto-Presto;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/autopresto-stats;Oaat;0;Oasis
+Oasis Statistiques BDG GSP;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/autogsp-bdg-stats;Oarg;0;Oasis
+Oasis Statistiques Presto Glace;E:/inetpub/wwwroot/web/intranet/appli/oasis_pilotage/prestoglace;Oapg;0;Oasis
+Omnicanalité Flux Agences;E:/inetpub/wwwroot/web/intranet/appli/Omnicanalite;;0;
+OSCAR - Surveillance du Portefeuille;E:/inetpub/wwwroot/web/intranet/appli/SurveillancePortefeuille;spf1,spf2;0;
+OTC - Solvabilité 2;E:/inetpub/wwwroot/web/intranet/appli/OutilTracageControle;Otcu,Otca,Otcc;0;
+Outil Aide à la Conformité;E:/inetpub/wwwroot/web/intranet/appli/outilvie;Ov00,Ov02;0;
+Outil de Synthèse RDS Solvabilité 2;E:/inetpub/wwwroot/web/intranet/appli/SyntheseRDS;osyr;0;
+Paramétrage des tables produits SIGMA;E:/inetpub/wwwroot/web/intranet/appli/Parametrage_ET;Geta,Pett,Peta;0;
+Paramétrage Tableaux de bord GRC;E:/inetpub/wwwroot/web/intranet/appli/GRC_suivi_SRC;Acpa;0;
+Passeport;E:/inetpub/wwwroot/web/intranet/appli/Passeport_V2;Ppv2,Pcpt;0;
+Pilotage Associations Evénements Terrain;E:/inetpub/wwwroot/web/intranet/appli/AssoEvtTerrains;PILOT_ASSO_EVT_TERRAIN;0;
+Pilotage Coûts Auto GSP;E:/inetpub/wwwroot/web/intranet/appli/AutoCoutsGSP;;0;
+Pilotage Coûts AutoPresto;E:/inetpub/wwwroot/web/intranet/appli/AutoPresto;;0;
+Pilotage GED;E:/inetpub/wwwroot/web/intranet/appli/PilotageGed;Pged;0;
+Pilotage IDA - Tableaux de bord;E:/inetpub/wwwroot/web/intranet/appli/IDA;;0;
+Plan d'actions;E:/inetpub/wwwroot/web/intranet/appli/PA_GCM;Pa0;0;
+Planificateur des variantes Sigma;E:/inetpub/wwwroot/web/intranet/appli/PlanifVariantesSIGMA;Apvs;0;
+Plans des batiments;E:/inetpub/wwwroot/web/intranet/appli/PlansMRA;Plmr,Plms;0;
+Portail et Authentification ASR;E:/inetpub/wwwroot/web/intranet/asr;link,ifit,grpu,rsgr,puba,gpla,usrw;0;
+Portail Pilotage;E:/inetpub/wwwroot/web/intranet/appli/Portail_Pilotage;;0;
+Porte-Adresse et Gestion ELR Maileva;E:/inetpub/wwwroot/web/intranet/appli/PorteAdresse;Padm;0;
+Propositions de Mises en Demeure;E:/inetpub/wwwroot/web/intranet/appli/PropoMED;cmda,cmdp,cmdc,cmdd,cmdr;0;
+Préparation du fichier Romactis;E:/inetpub/wwwroot/web/intranet/appli/Romactis;;0;
+QACheck;E:/inetpub/wwwroot/web/intranet/appli/VerifBo;Qaka,Qakb,Qakc,Qakn,Qaks,Qakr;0;
+QuoiKonFait;E:/inetpub/wwwroot/web/intranet/appli/quoikonfait;;0;
+Relevé d'Informations Automobiles;E:/inetpub/wwwroot/web/intranet/appli/Releve_Informations_Auto;Rinf;0;
+Requêtes Portefeuille Vie;E:/inetpub/wwwroot/web/intranet/appli/Req_portefeuille_Vie;Trqv,Tpav;0;
+Requêtes WebFocus;E:/inetpub/wwwroot/web/intranet/appli/LanceurFex;;0;
+RGPD - Traitement des purges et anonymisations ASR;E:/inetpub/wwwroot/web/intranet/appli/RGPD;;0;
+Réaffectations commerciales;E:/inetpub/wwwroot/web/intranet/appli/icasi;;0;
+Réassurance Des Caisses Locales;E:/inetpub/wwwroot/web/intranet/appli/Reass;;0;
+Référentiel des Requêtes Focus et Spufi;E:/inetpub/wwwroot/web/intranet/appli/FocusProd;Focp;0;
+Réservation Imprimés Fournitures;E:/inetpub/wwwroot/web/intranet/appli/ResImprimes;Rsim Rsig Rsip Rsic;0;
+Réservation Ressources (Véhicules, Audios);E:/inetpub/wwwroot/web/intranet/appli/reservation_ressources;Rere,Repa,Remr,Rerr;0;
+Résiliations Concurrences;E:/inetpub/wwwroot/web/intranet/appli/Resiliation;Resl,Resa;0;
+Salles de réunions - Statistiques;E:/inetpub/wwwroot/web/intranet/appli/paquetage;;0;
+Situation d'Assurance;E:/inetpub/wwwroot/web/intranet/appli/situation_assurance;sass,Sasp,Sasg;0;
+Sociétaires CUMA;E:/inetpub/wwwroot/web/intranet/appli/CUMA;Cuma;0;
+Spécificités Garanties DEC;E:/inetpub/wwwroot/web/intranet/appli/DEC_SpecifsGie;Dgie;0;
+Statistiques Accès Intranet;E:/inetpub/wwwroot/web/intranet/appli/StatsIntranet;Stta;0;
+Statistiques sinistres entreprises;E:/inetpub/wwwroot/web/intranet/appli/StatSinistreEp;Stse;0;
+Suivi Activ. VIE prestation;E:/inetpub/wwwroot/web/intranet/appli/Suivi_Vie;Svso,Svpr;0;
+Suivi Assolement MRC;E:/inetpub/wwwroot/web/intranet/appli/GreleClimat2;Arg2,Arg3;0;
+Suivi Budgétaire;E:/inetpub/wwwroot/web/intranet/appli/suivibudgetaire;Svtb,Svgb,Svpb;0;
+Suivi Conformité Banque;E:/inetpub/wwwroot/web/intranet/appli/Conformite_Banque;Ncb0;0;
+Suivi de la Prévention;E:/inetpub/wwwroot/web/intranet/appli/SuiviPrevention;Pre1,Pre2;0;
+Suivi de pilotage et performance CRC 2021;E:/inetpub/wwwroot/web/intranet/appli/SRC_GPlus_2021;Srcg;0;
+Suivi des Dossiers Graves;E:/inetpub/wwwroot/web/intranet/appli/Sinistres_Importants;simp,simf,sima;0;
+Suivi des dérogations;E:/inetpub/wwwroot/web/intranet/appli/Suivi_Derogations;;0;
+Suivi des installations techniques;E:/inetpub/wwwroot/web/intranet/appli/Suivi_Installations;;0;
+Suivi des mouvements OAV;E:/inetpub/wwwroot/web/intranet/appli/SuiviMvtOAV;Ssmo,Ssma;0;
+Suivi des rejets encaissements;E:/inetpub/wwwroot/web/intranet/appli/CT_Rejet_Encaissement;;0;
+Suivi des retours CPs signées;E:/inetpub/wwwroot/web/intranet/appli/CP_Signees;;0;
+Suivi des Résultats Commerciaux;E:/inetpub/wwwroot/web/intranet/appli/SRC;Src1,Src3,Acre,Srcd,ssas;0;
+Suivi des résultats des analystes Production;E:/inetpub/wwwroot/web/intranet/appli/ResultatsAnalystesProduction;ranp;0;
+Suivi Qualité des données GRC;E:/inetpub/wwwroot/web/intranet/appli/Qualdon;src1,gqu1,gqua;0;
+Sélection et Calcul Avantages commerciaux;E:/inetpub/wwwroot/web/intranet/appli/OutilSelectionCalculAvantages;;0;
+Tableaux de Bord Compta;E:/inetpub/wwwroot/web/intranet/appli/TdBCompta;;0;
+Tableaux de Bord Production;E:/inetpub/wwwroot/web/intranet/appli/TdbProd;Tbpa,Tdbp;0;
+Tracker;E:/inetpub/wwwroot/web/intranet/appli/_Divers_Suivis/MaJ_Bases;VI0B,Trk3,Trk2,Trak;0;
+Traduction GUP Sigma et Identifiants Maine-Soft;E:/inetpub/wwwroot/web/intranet/appli/IBIS;;0;
+Traitements d'automatisation TFA;E:/inetpub/wwwroot/web/intranet/appli/TFA;;0;
+Visualisation des Tables DWH;E:/inetpub/wwwroot/web/intranet/appli/visudwh;Vdwh;0;
+Visualisation des Tables Intranet;E:/inetpub/wwwroot/web/intranet/appli/visuTableIntranet;Vtab;0;
+WFM Equité;E:/inetpub/wwwroot/web/intranet/appli/WFMEquite;Wfmq;0;
+Winflotte;E:/inetpub/wwwroot/web/intranet/appli/Winflotte;;0;
+DOSI Exploitation;ouioui/ouioui,com;Quoi,couB;1;
+DOSI commun;ouioui/ouioui/nonon/ouioui,com;Apag,Nann;0;

@@ -1,6 +1,0 @@
-[2025-04-25 11:57:15][INFO] === Script started ===
-[2025-04-25 11:57:15][INFO] Module base_func loaded.
-[2025-04-25 11:57:15][INFO] SQL connection opened.
-[2025-04-25 11:57:15][INFO] SQL connection closed.
-[2025-04-25 11:57:15][INFO] Execution Time: 0.0207538 seconds
-[2025-04-25 11:57:15][INFO] === Script ended ===

@@ -105,7 +105,7 @@ VALUES ('$guid', '$sam', '$name', '$mail');
 
         Invoke-SqlNonQuery -query $sql
     } else {
-        Write-Host "Utilisateur déjà présent : $guid → Aucune insertion." -ForegroundColor Yellow
+        Write-Host "Utilisateur déjà présent : $guid → Aucune insertion." -ForegroundColor Yellow 
     }
 
     if (-not (User-Group-Link-Exists -user_guid $guid -group_guid $groupid)) {
