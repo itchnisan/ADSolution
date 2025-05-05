@@ -7,47 +7,98 @@ $connectionString = "Server=$server;Database=$database;Integrated Security=True;
 
 <#
 .SYNOPSIS
-Exécute une requête SQL qui retourne une seule valeur (ExecuteScalar)
+    Exécute une requête SQL qui retourne une seule valeur (ExecuteScalar)
 
 .PARAMETER query
-Requête SQL à exécuter
+    Requête SQL à exécuter
 
 .RETOUR
-Résultat unique (première colonne, première ligne)
+    Résultat unique (première colonne, première ligne)
 #>
-function Invoke-SqlQuery {
-    param ([string]$query)
+Function Invoke-SqlQuery {
+    [CmdletBinding()]
+    PARAM(
+        [Parameter(Mandatory)]
+        [string]$Query,
+        [hashtable]$Parameters = @{}
+    )
 
-    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
-    $command = $connection.CreateCommand()
-    $command.CommandText = $query
+    BEGIN {
+        $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+        $command = $connection.CreateCommand()
+        $command.CommandText = $Query
 
-    $connection.Open()
-    $result = $command.ExecuteScalar()
-    $connection.Close()
+        # Parameterized Query
+        foreach ($key in $Parameters.Keys) {
+            [void]$command.Parameters.AddWithValue($key, $Parameters[$key])
+        }
 
-    return $result
+        $connection.Open()
+    }
+
+    PROCESS {
+        try {
+            # ExecuteScalar pour les requêtes qui retournent une seule valeur
+            $result = $command.ExecuteScalar()
+            return $result
+        }
+        catch {
+            Write-Error "Error executing SQL query: $_"
+            return $null
+        }
+    }
+
+    END {
+        $connection.Close()
+    }
 }
 
 <#
 .SYNOPSIS
-Exécute une requête SQL sans retour (INSERT, UPDATE, DELETE, etc.)
+    Exécute une requête SQL sans retour (INSERT, UPDATE, DELETE, etc.)
 
 .PARAMETER query
-Requête SQL à exécuter
+    Requête SQL à exécuter
+
+.RETOUR
+    Pas de retour (Nil)
 #>
-function Invoke-SqlNonQuery {
-    param ([string]$query)
+Function Invoke-SqlNonQuery {
+    [CmdletBinding()]
+    PARAM(
+        [Parameter(Mandatory)]
+        [string]$Query,
+        [hashtable]$Parameters = @{}
+    )
 
-    $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
-    $command = $connection.CreateCommand()
-    $command.CommandText = $query
+    BEGIN {
+        $connection = New-Object System.Data.SqlClient.SqlConnection $connectionString
+        $command = $connection.CreateCommand()
+        $command.CommandText = $Query
 
-    $connection.Open()
-    $command.ExecuteNonQuery()
-    $connection.Close()
+        # Parameterized Query
+        foreach ($key in $Parameters.Keys) {
+            [void]$command.Parameters.AddWithValue($key, $Parameters[$key])
+        }
+
+        $connection.Open()
+    }
+
+    PROCESS {
+        try {
+            $rowsAffected = $command.ExecuteNonQuery()
+            return $rowsAffected
+        }
+        catch {
+            Write-Error "Error executing SQL non-query: $_"
+            return 0
+        }
+    }
+
+    END {
+        $connection.Close()
+    }
 }
-
 #endregion Fonctions SQL
 
 #region Utilisateurs
@@ -59,60 +110,65 @@ Insère une liste d'utilisateurs dans la base de données.
 .PARAMETER filteredUsers
 Objet DataTable contenant les colonnes : GUID, samAccountName, Name, Mail.
 #>
-function Insert-List-Users {
-    param($filteredUsers,$groupid)
+Function Import-SQLUsersList { # TODO: Changer Insert-List-Users par Import-SQLUsersList, idem pour Insert-User en Import-SQLUser dans les autres scripts
+    Param(
+        [Parameter(Mandatory)]
+        $FilteredUsers,
+        [Parameter(Mandatory)]
+        $GroupId
+    )
+  
 
-    
-    foreach ($row in $filteredUsers) {
 
-        Insert-User -user @{
-            user_guid      = $row.GUID
-            samAccountName = $row.samAccountName
-            name           = $row.Name
-            email          = $row.Mail
-        } -groupid $groupid
-        
+    foreach ($user in $FilteredUsers) {
+    Import-SQLUser -User $user -GroupId $GroupId
     }
+
 }
 
-<#
-.SYNOPSIS
-Insert a single user if they don't already exist.
-
-.PARAMETER user
-Object containing: user_guid, samAccountName, name, email
-#>
-function Insert-User {
-    param(
-        [hashtable]$user,
-        $groupid
+Function Import-SQLUser {
+    PARAM(
+        [Parameter(Mandatory = $true)]
+        $User,
+        [string]$GroupId
     )
 
-    $guid = $user.user_guid
-    $sam = $user.samAccountName
-    $name = $user.name
-    $mail = $user.email
+    PROCESS {
+        Write-Host ("Checking if user [{0} {1} {2} {3}] needs to be inserted" -f $User.guid, $User.sam, $User.name, $User.mail) -ForegroundColor Magenta
 
-    Write-Host "Insert of user :" $guid $sam $name $mail -ForegroundColor Magenta
+        if (-not (Assert-SQLUser -Guid $User.guid)) {
+            Write-Host ("User {0} is not present within the DB, inserting..." -f $User.name)
 
-    if (-not (User-Exists -user_guid $guid)) {
-        Write-host "user not in DB, insertion in DB ..." $name 
+            $Parameters = @{
+                "@Guid"           = $User.guid
+                "@SamAccountName" = $User.sam
+                "@Name"           = $User.name
+                "@Mail"           = if ($User.mail) { $User.mail } else { [DBNull]::Value }
+            }
 
-        $sql = @"
+            $sql = @"
 INSERT INTO T_ASR_AD_USERS_1 (user_guid, sam_acount_name, name, email)
-VALUES ('$guid', '$sam', '$name', '$mail');
+VALUES (@Guid, @SamAccountName, @Name, @Mail);
 "@
 
-        Invoke-SqlNonQuery -query $sql
-    } else {
-        Write-Host "Utilisateur déjà présent : $guid → Aucune insertion." -ForegroundColor Yellow 
-    }
+            try {
+                Invoke-SqlNonQuery -Query $sql -Parameters $Parameters
+            }
+            catch {
+                Write-Error "Erreur lors de l'insertion de $($User.guid) : $_"
+                return
+            }
 
-    if (-not (User-Group-Link-Exists -user_guid $guid -group_guid $groupid)) {
-        Write-Host "Création du lien utilisateur-groupe pour $guid ↔ $groupid" -ForegroundColor Cyan
-        Insert-link-User-Group -user_guid $guid -group_guid $groupid
-    } else {
-        Write-Host "Liaison user-groupe déjà existante pour $guid et $groupid" -ForegroundColor DarkGray
+            
+        } else {
+            Write-Host ("Utilisateur déjà présent : {0} → Aucune insertion." -f $User.guid) -ForegroundColor Yellow 
+        }
+        if (-not (Assert-SQLUserGroupLink -UserGuid $User.guid -GroupGuid $GroupId)) {
+                Write-Host "Création du lien utilisateur-groupe pour $($User.guid) ↔ $GroupId" -ForegroundColor Cyan
+                Create-UserGroupLink -UserGuid $User.guid -GroupGuid $GroupId
+            } else {
+                Write-Host "Liaison user-groupe déjà existante pour $($User.guid) et $GroupId" -ForegroundColor DarkGray
+            }
     }
 }
 
@@ -121,224 +177,380 @@ VALUES ('$guid', '$sam', '$name', '$mail');
 
 #region Groupes
 
-<#
-.SYNOPSIS
-Insère un groupe unique.
+function Import-Group {
+    <#
+    .SYNOPSIS
+        Insère un groupe Active Directory dans la base de données.
 
-.PARAMETER group
-Objet contenant : ObjectGUID, SamAccountName, DistinguishedName
-#>
-function Insert-Groups {
-    param($group)
+    .DESCRIPTION
+        Cette fonction vérifie si un groupe existe dans la base de données. Si ce n'est pas le cas,
+        elle insère le groupe en utilisant ses informations AD : GUID, SamAccountName, DN.
 
-    $group_guid = $group.ObjectGUID
-    $sam_name = $group.SamAccountName
-    $dn = $group.DistinguishedName
+    .PARAMETER group
+        Objet groupe AD contenant les propriétés ObjectGUID, SamAccountName et DistinguishedName.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        $group
+    )
 
-    if (-not (Group-Exists -group_guid $group_guid)) {
-        $sql = @"
+    try {
+        $GroupId = $group.ObjectGUID
+        $sam_name = $group.SamAccountName
+        $dn = $group.DistinguishedName
+
+        if (-not (Check-GroupExistence -GroupId $GroupId)) {
+            $sql = @"
 INSERT INTO T_ASR_AD_GROUPS_1 (group_guid, name, dn)
-VALUES ('$group_guid', '$sam_name', '$dn');
+VALUES (@GroupId, @SamName, @DN)
 "@
-        Invoke-SqlNonQuery -query $sql
+            $Parameters = @{
+                "@GroupId" = $GroupId
+                "@SamName" = $sam_name
+                "@DN" = $dn
+            }
+            
+            Invoke-SqlNonQuery -Query $sql -Parameters $Parameters
+            Write-Host "Group $sam_name inserted successfully." -ForegroundColor Green
+        }
+        else {
+            Write-Host "Group $sam_name already exists. Skipping insertion." -ForegroundColor Yellow
+        }
     }
-    else {
-        Write-host "Group $group_guid already exists. Skipping insertion."
+    catch {
+        Write-Error "Error in Import-Group: $_"
     }
 }
-
 #endregion Groupes
 
 #region Lien Utilisateur-Groupe
 
-<#
-.SYNOPSIS
-Crée un lien utilisateur-groupe via leurs GUIDs.
+function Create-UserGroupLink {
+    <#
+    .SYNOPSIS
+        Crée un lien entre un utilisateur et un groupe dans la base de données.
 
-.PARAMETER user_guid
-GUID utilisateur
+    .DESCRIPTION
+        Récupère les IDs internes de l'utilisateur et du groupe depuis leurs GUIDs, puis crée une
+        entrée dans la table de liaison si les deux existent.
 
-.PARAMETER group_guid
-GUID groupe
-#>
-function Insert-link-User-Group {
+    .PARAMETER UserGuid
+        GUID de l'utilisateur.
+
+    .PARAMETER GroupGuid
+        GUID du groupe.
+    #>
+    [CmdletBinding()]
     param(
-        [string]$user_guid,
-        [string]$group_guid
+        [Parameter(Mandatory = $true)]
+        [string]$UserGuid,
+
+        [Parameter(Mandatory = $true)]
+        [string]$GroupGuid
     )
-    Write-Host "enter in link"
-    $getUserId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
-    $getGroupId = "SELECT id FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
 
-    $user_id = Invoke-SqlQuery -query $getUserId
-    $group_id = Invoke-SqlQuery -query $getGroupId
+   
+    begin {   
+    }
+  
+    process {
+    Write-Host "GUID = "$UserGuid  " ett" $GroupGuid
+    $userId  = Get-EntityIdByGuid -TableName "T_ASR_AD_USERS_1" -GuidColumn "user_guid"  -GuidValue $UserGuid
+    $groupId = Get-EntityIdByGuid -TableName "T_ASR_AD_GROUPS_1" -GuidColumn "group_guid" -GuidValue $GroupGuid
+        Write-Host "Tentative de liaison user_id=$userId avec group_id=$groupId" -ForegroundColor Cyan
 
-    Write-Host "insert in link" $user_id $group_id
-    if ($user_id -and $group_id) {
-    
-        $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES ($user_id, $group_id);"
-        Invoke-SqlNonQuery -query $sql
-    }else{
-        Write-Warning " link not insert :" $user_guid $group_guid
+        if ($userId -and $groupId) {
+            $sql = "INSERT INTO T_ASR_AD_USERS_GROUPS_1 (user_id, group_id) VALUES (@UserId, @GroupId);"
+            $params = @{
+                "@UserId"  = $userId
+                "@GroupId" = $groupId
+            }
+            Invoke-SqlNonQuery -Query $sql -Parameters $params
+        } else {
+            Write-Warning "Liaison échouée : ID utilisateur ou groupe introuvable (UserGuid=$UserGuid, GroupGuid=$GroupGuid)."
+        }
     }
 }
+
+function Get-EntityIdByGuid {
+    param (
+         [string]$TableName,
+         [string]$GuidColumn,
+         [string]$GuidValue
+    )
+
+    Write-Host ">>> Entrée dans Get-EntityIdByGuid"
+    $query = "SELECT id FROM $TableName WHERE $GuidColumn = @Guid;"
+    $params = @{ "@Guid" = $GuidValue }
+
+    try {
+        $result = Invoke-SqlQuery -Query $query -Parameters $params
+        
+    } catch {
+        Write-Error "ERREUR SQL : $_"
+        return $null
+    }
+
+    if ($result) {
+        return $result
+    } else {
+        Write-Warning "Aucun résultat trouvé pour $GuidValue"
+        return $null
+    }
+}
+
+
+
 
 #endregion Lien Utilisateur-Groupe
 
 #region Suppression
 
-<#
-.SYNOPSIS
-Supprime un utilisateur par GUID
-#>
-function Delete-User {
-    param([string]$user_guid)
+function Remove-User {
+    <#
+    .SYNOPSIS
+        Supprime un utilisateur de la base de données à partir de son GUID.
 
-    #get the id from the guid
-    $sqlGetId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
-    $id_user = Invoke-SqlNonQuery -query $sqlGetId
+    .PARAMETER user_guid
+        GUID de l'utilisateur à supprimer.
+    #>
+    [CmdletBinding()]
+    param([string]$UserGuid)
 
-    if ($null -ne $id_user) {
-
-
-        #delete
-        $sqlDeleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id_user = $id_user;"
-        Invoke-SqlNonQuery -query $sqlDeleteUser
-
-        Write-Output "user delete with succes (id_user = $id_user)"
-    } else {
-        Write-Warning "no user found for guid : $user_guid"
+    begin {
+        $sqlGetId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$UserGuid';"
+        $id_user_result = Invoke-SqlQuery -query $sqlGetId
+        $id_user = if ($id_user_result.Rows.Count -gt 0) { $id_user_result.Rows[0]["id"] } else { $null }
     }
+
+    process {
+        if ($null -ne $id_user) {
+            $sqlDeleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = $id_user;"
+            Invoke-SqlNonQuery -query $sqlDeleteUser
+            Write-Output "User deleted with success (id_user = $id_user)"
+        } else {
+            Write-Warning "No user found for guid: $user_guid"
+        }
+    }
+
+    end {}
 }
 
-<#
-.SYNOPSIS
-Supprime un groupe par GUID
-#>
-function Delete-Group {
-    param([string]$group_guid)
+function Remove-Group {
+    <#
+    .SYNOPSIS
+        Supprime un groupe de la base de données à partir de son GUID.
 
-    $sql = "DELETE FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
-    Invoke-SqlNonQuery -query $sql
+    .PARAMETER group_guid
+        GUID du groupe à supprimer.
+    #>
+    [CmdletBinding()]
+    param([string]$GroupId)
+
+    begin {
+        $sql = "DELETE FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$GroupId';"
+    }
+
+    process {
+        Invoke-SqlNonQuery -query $sql
+    }
+
+    end {}
 }
 
-<#
-.SYNOPSIS
-Supprime un lien utilisateur-groupe via leurs GUIDs
-#>
-function Delete-Link-User-Group {
+function Remove-UserGroupLink {
+    <#
+    .SYNOPSIS
+        Supprime un lien entre un utilisateur et un groupe.
+        Supprime également l'utilisateur si celui-ci ne possède plus aucun lien.
+
+    .PARAMETER user_guid
+        GUID de l'utilisateur.
+
+    .PARAMETER group_guid
+        GUID du groupe.
+    #>
+    [CmdletBinding()]
     param(
-        [string]$user_guid,
-        [string]$group_guid
+        [Parameter(Mandatory = $true)]
+        [string]$UserGuid,
+
+        [Parameter(Mandatory = $true)]
+        [string]$GroupGuid
     )
 
-    $getUserId = "SELECT id FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid';"
-    $getGroupId = "SELECT id FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
+    begin {
+    }
 
-    $user_id = Invoke-SqlQuery -query $getUserId
-    $group_id = Invoke-SqlQuery -query $getGroupId
+    process {
 
-    if ($user_id -and $group_id) {
-        
-        $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id AND group_id = $group_id;"
-        Invoke-SqlNonQuery -query $sql
+        $userId  = Get-EntityIdByGuid -TableName "T_ASR_AD_USERS_1" -GuidColumn "user_guid"  -GuidValue $UserGuid
+        $groupId = Get-EntityIdByGuid -TableName "T_ASR_AD_GROUPS_1" -GuidColumn "group_guid" -GuidValue $GroupGuid
 
-        $checkLinks = "SELECT COUNT(*) FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $user_id;"
-        $linkCount = Invoke-SqlQuery -query $checkLinks
+        if ($userId -and $groupId) {
+            $sql = "DELETE FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $userId AND group_id = $groupId;"
+            Invoke-SqlNonQuery -query $sql
 
-      
+            $checkLinks = "SELECT COUNT(*) AS C FROM T_ASR_AD_USERS_GROUPS_1 WHERE user_id = $userId;"
+            $linkCount_result = Invoke-SqlQuery -query $checkLinks
 
-        Write-Host $linkCount
-        if ($linkCount -eq 0) {
-            $deleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = $user_id;"
-            Invoke-SqlNonQuery -query $deleteUser
-            Write-Output "user delete because he have 0 link with groups (id = $user_id)."
+            if ($linkCount_result -eq 0) {
+                $deleteUser = "DELETE FROM T_ASR_AD_USERS_1 WHERE id = $userId;"
+                Invoke-SqlNonQuery -query $deleteUser
+                Write-Output "User deleted because they had 0 links with groups (id = $userId)."
+            } else {
+                Write-Output "Link deleted but user still in other groups."
+            }
         } else {
-            Write-Output "Link deleted but user still in other groups"
+            Write-Warning "User or group don't exist."
         }
-     } else {
-        Write-Warning "user or group don't exist"
-     }
-    
+    }
+
+    end {}
 }
 
 #endregion Suppression
 
-#region Verification
-<#
-.SYNOPSIS
-Check if a user already exists in the database.
+#region Vérification
 
-.PARAMETER user_guid
-The GUID of the user to check.
+function Assert-SQLUser {
+    <#
+    .SYNOPSIS
+        Vérifie si un utilisateur existe dans la base de données.
 
-.RETURN
-Returns $true if user exists, otherwise $false.
-#>
-function User-Exists {
-    param([string]$user_guid)
+    .PARAMETER Guid
+        GUID de l'utilisateur.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Guid
+    )
 
-    $query = "SELECT COUNT(*) FROM T_ASR_AD_USERS_1 WHERE user_guid = '$user_guid' "
-    $count = Invoke-SqlQuery -query $query
-    return ($count -gt 0)
+    begin {
+        $query = "SELECT COUNT(*) FROM T_ASR_AD_USERS_1 WHERE user_guid = @Guid"
+        $params = @{ "@Guid" = $Guid }
+    }
+
+    process {
+        $count = Invoke-SqlQuery -Query $query -Parameters $params
+        return ($count -gt 0)
+    }
+
+    end {}
 }
 
-function Group-Exists {
-    param([string]$group_guid)
-    $query = "SELECT COUNT(*) FROM T_ASR_AD_GROUPS_1 WHERE group_guid = '$group_guid';"
-    $count = Invoke-SqlQuery -query $query
-    return ($count -gt 0)
+
+function Check-GroupExistence {
+    <#
+    .SYNOPSIS
+        Vérifie si un groupe existe dans la base de données.
+
+    .PARAMETER GroupId
+        GUID du groupe.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$GroupId
+    )
+
+    try {
+        $query = "SELECT COUNT(*) FROM T_ASR_AD_GROUPS_1 WHERE group_guid = @GroupId"
+        $Parameters = @{
+            "@GroupId" = $GroupId
+        }
+        
+        $count = Invoke-SqlQuery -Query $query -Parameters $Parameters
+        return ($count -gt 0)
+    }
+    catch {
+        Write-Error "Error in Check-GroupExistence for GroupId $GroupId : $_"
+        return $false
+    }
 }
 
-function User-Group-Link-Exists {
-    param($user_guid, $group_guid)
+function Assert-SQLUserGroupLink {
+    <#
+    .SYNOPSIS
+        Vérifie si un lien entre un utilisateur et un groupe existe dans la base de données.
 
-    $query = @"
-SELECT COUNT(*) 
+    .PARAMETER UserGuid
+        GUID de l'utilisateur.
+
+    .PARAMETER GroupGuid
+        GUID du groupe.
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$UserGuid,
+
+        [Parameter(Mandatory)]
+        [string]$GroupGuid
+    )
+
+    begin {
+        $query = @"
+SELECT COUNT(*) AS C
 FROM T_ASR_AD_USERS_1 u
 JOIN T_ASR_AD_USERS_GROUPS_1 ug ON u.id = ug.user_id
 JOIN T_ASR_AD_GROUPS_1 g ON ug.group_id = g.id
-WHERE u.user_guid = '$user_guid' AND g.group_guid = '$group_guid'
+WHERE u.user_guid = @UserGuid AND g.group_guid = @GroupGuid
 "@
 
-    $result = Invoke-SqlQuery -query $query
-    return ($result -gt 0)
+        $parameters = @{
+            "@UserGuid"  = $UserGuid
+            "@GroupGuid" = $GroupGuid
+        }
+    }
+
+    process {
+        $count = Invoke-SqlQuery -Query $query -Parameters $parameters
+        return ($count -gt 0)
+    }
+
+    end {}
 }
 
-#endregion Verification
-
+#endregion Vérification
 
 #region Update User
 
-<#
-.SYNOPSIS
-Updates an existing user in the database with new information.
+function Update-ExistingUser {
+    <#
+    .SYNOPSIS
+        Met à jour les informations d'un utilisateur dans la base de données.
 
-.PARAMETER user
-Object containing: user_guid, samAccountName, name, email
-
-.RETURN
-Updates the user in the database if there are changes.
-#>
-function Update-User {
+    .PARAMETER user
+        Objet utilisateur avec les propriétés user_guid, samAccountName, name, email.
+    #>
+    [CmdletBinding()]
     param(
-        [hashtable]$user
+        [hashtable]$User
     )
 
-    $guid = $user.user_guid
-    $sam = $user.samAccountName
-    $name = $user.name
-    $mail = $user.email
+    begin {
+        $guid = $User.user_guid
+        $sam = $User.samAccountName
+        $name = $User.name
+        $mail = $User.email
 
-    Write-Host "Updating user:" $guid $sam $name $mail -ForegroundColor Cyan
+        Write-Host "Updating user:" $guid $sam $name $mail -ForegroundColor Cyan
 
-    $sql = @"
+        $sql = @"
 UPDATE T_ASR_AD_USERS_1 
 SET sam_acount_name = '$sam', name = '$name', email = '$mail' 
 WHERE user_guid = '$guid';
 "@
-    
-    Invoke-SqlNonQuery -query $sql
+    }
+
+    process {
+        Invoke-SqlNonQuery -query $sql
+    }
+
+    end {}
 }
 
 #endregion Update User

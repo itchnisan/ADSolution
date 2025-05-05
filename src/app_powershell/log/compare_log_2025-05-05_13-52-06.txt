@@ -1,0 +1,73 @@
+[2025-05-05 13:52:06][INFO] === Script started ===
+[2025-05-05 13:52:06][INFO] Module base_func loaded successfully.
+[2025-05-05 13:52:06][INFO] SQL connection opened.
+[2025-05-05 13:52:06][INFO] Processing group: DOSI ASR DFS
+[2025-05-05 13:52:06][WARN] No users found in DB for DOSI ASR DFS. Inserting from CSV...
+[2025-05-05 13:52:06][ERROR] Error processing group DOSI ASR DFS : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 13:52:06][INFO] Processing group: DOSI cadres encadrants
+[2025-05-05 13:52:06][INFO] Processing group: DOSI CDI
+[2025-05-05 13:52:07][INFO] Processing group: DOSI commun
+[2025-05-05 13:52:07][WARN] No users found in DB for DOSI commun. Inserting from CSV...
+[2025-05-05 13:52:07][ERROR] Error processing group DOSI commun : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 13:52:07][INFO] Processing group: DOSI Coordination
+[2025-05-05 13:52:07][INFO] Processing group: DOSI DGA
+[2025-05-05 13:52:07][INFO] Processing group: DOSI Editique
+[2025-05-05 13:52:08][INFO] Processing group: DOSI Etudes AMOA
+[2025-05-05 13:52:08][INFO] Processing group: DOSI Etudes Assurance
+[2025-05-05 13:52:08][INFO] Processing group: DOSI Etudes CMOP
+[2025-05-05 13:52:08][INFO] Processing group: DOSI Etudes commun exploitation lecture
+[2025-05-05 13:52:09][INFO] Processing group: DOSI Etudes commun exploitation écriture
+[2025-05-05 13:52:09][INFO] Processing group: DOSI Etudes commun GCM lecture
+[2025-05-05 13:52:09][INFO] Processing group: DOSI Etudes commun GCM écriture
+[2025-05-05 13:52:09][INFO] Processing group: DOSI Etudes decisionnel
+[2025-05-05 13:52:09][INFO] Processing group: DOSI Etudes IIS
+[2025-05-05 13:52:10][INFO] User only in DB, deleting link: GCMNU0308
+[2025-05-05 13:52:10][INFO] Processing group: DOSI Etudes integration communautaire
+[2025-05-05 13:52:10][INFO] Processing group: DOSI Etudes SI RH
+[2025-05-05 13:52:10][INFO] Processing group: DOSI etudes WEBDOC DEV
+[2025-05-05 13:52:11][INFO] Processing group: DOSI etudes WEBDOC PRODUCTION
+[2025-05-05 13:52:11][INFO] Processing group: DOSI etudes WEBDOC RECETTE
+[2025-05-05 13:52:11][INFO] Processing group: DOSI etudes WEBDOC
+[2025-05-05 13:52:11][INFO] Processing group: DOSI Etudes
+[2025-05-05 13:52:12][INFO] Processing group: DOSI EtudesBDD Dev
+[2025-05-05 13:52:12][INFO] Processing group: DOSI EtudesBDD
+[2025-05-05 13:52:12][INFO] Processing group: DOSI Exploitation commun
+[2025-05-05 13:52:12][INFO] Processing group: DOSI Exploitation exploitation
+[2025-05-05 13:52:12][INFO] Processing group: DOSI Exploitation
+[2025-05-05 13:52:13][INFO] Processing group: DOSI Habilitations
+[2025-05-05 13:52:13][INFO] Processing group: DOSI Logistique Commun-autre
+[2025-05-05 13:52:13][INFO] Processing group: DOSI Logistique invites
+[2025-05-05 13:52:13][INFO] Processing group: DOSI Logistique Le Mans
+[2025-05-05 13:52:14][INFO] Processing group: DOSI Logistique
+[2025-05-05 13:52:14][INFO] Processing group: DOSI PCA GCM lecture
+[2025-05-05 13:52:14][INFO] Processing group: DOSI PCA GCM écriture
+[2025-05-05 13:52:14][INFO] Processing group: DOSI restreint DOSI
+[2025-05-05 13:52:15][INFO] Processing group: DOSI SAU
+[2025-05-05 13:52:15][INFO] Processing group: DOSI site Caen
+[2025-05-05 13:52:15][INFO] Processing group: DOSI site Le Mans
+[2025-05-05 13:52:16][INFO] Processing group: DOSI Technique Achats et Parc ACHAT
+[2025-05-05 13:52:16][INFO] Processing group: DOSI Technique Achats et Parc Cout INF GCM
+[2025-05-05 13:52:16][INFO] Processing group: DOSI Technique Achats et Parc PARC
+[2025-05-05 13:52:16][INFO] Processing group: DOSI Technique Achats et Parc
+[2025-05-05 13:52:17][INFO] Processing group: DOSI Technique Administration
+[2025-05-05 13:52:17][INFO] Processing group: DOSI Technique Infrastructure Telecom
+[2025-05-05 13:52:17][INFO] Processing group: DOSI Technique Infrastructures techniques
+[2025-05-05 13:52:17][INFO] Processing group: DOSI Technique pilotage SAP
+[2025-05-05 13:52:18][INFO] Processing group: DOSI Technique
+[2025-05-05 13:52:18][INFO] Processing group: DOSI-Administration ISE
+[2025-05-05 13:52:18][WARN] No users found in DB for DOSI-Administration ISE. Inserting from CSV...
+[2025-05-05 13:52:18][ERROR] Error processing group DOSI-Administration ISE : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 13:52:18][INFO] Processing group: DOSI-Administration Prime
+[2025-05-05 13:52:18][WARN] No users found in DB for DOSI-Administration Prime. Inserting from CSV...
+[2025-05-05 13:52:18][ERROR] Error processing group DOSI-Administration Prime : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 13:52:18][INFO] Processing group: DOSI-Administration Switch
+[2025-05-05 13:52:19][INFO] Processing group: DOSI-Administration WLC
+[2025-05-05 13:52:19][WARN] No users found in DB for DOSI-Administration WLC. Inserting from CSV...
+[2025-05-05 13:52:19][ERROR] Error processing group DOSI-Administration WLC : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 13:52:19][INFO] Processing group: DOSI-ExploitationBDD
+[2025-05-05 13:52:19][INFO] Processing group: DOSI
+[2025-05-05 13:52:19][INFO] Processing group: VMware Administration
+[2025-05-05 13:52:20][INFO] Processing group: WIFI User Authentication
+[2025-05-05 13:52:20][INFO] SQL connection closed.
+[2025-05-05 13:52:20][INFO] Execution Time: 13.9846128 seconds
+[2025-05-05 13:52:20][INFO] === Script ended ===

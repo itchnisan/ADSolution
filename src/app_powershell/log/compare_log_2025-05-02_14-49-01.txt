@@ -1,0 +1,32 @@
+[2025-05-02 14:49:01][INFO] === Script started ===
+[2025-05-02 14:49:01][INFO] Module base_func loaded successfully.
+[2025-05-02 14:49:01][INFO] SQL connection opened.
+[2025-05-02 14:49:01][INFO] Processing group: DOSI ASR DFS
+[2025-05-02 14:49:01][WARN] No users found in DB for DOSI ASR DFS. Inserting from CSV...
+[2025-05-02 14:49:01][ERROR] Error processing group DOSI ASR DFS : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:01][INFO] Processing group: DOSI cadres encadrants
+[2025-05-02 14:49:01][WARN] No users found in DB for DOSI cadres encadrants. Inserting from CSV...
+[2025-05-02 14:49:01][ERROR] Error processing group DOSI cadres encadrants : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:01][INFO] Processing group: DOSI CDI
+[2025-05-02 14:49:01][WARN] No users found in DB for DOSI CDI. Inserting from CSV...
+[2025-05-02 14:49:01][ERROR] Error processing group DOSI CDI : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:01][INFO] Processing group: DOSI commun
+[2025-05-02 14:49:02][WARN] No users found in DB for DOSI commun. Inserting from CSV...
+[2025-05-02 14:49:02][ERROR] Error processing group DOSI commun : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:02][INFO] Processing group: DOSI Coordination
+[2025-05-02 14:49:02][WARN] No users found in DB for DOSI Coordination. Inserting from CSV...
+[2025-05-02 14:49:02][ERROR] Error processing group DOSI Coordination : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:02][INFO] Processing group: DOSI DGA
+[2025-05-02 14:49:02][WARN] No users found in DB for DOSI DGA. Inserting from CSV...
+[2025-05-02 14:49:02][ERROR] Error processing group DOSI DGA : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:02][INFO] Processing group: DOSI Editique
+[2025-05-02 14:49:02][WARN] No users found in DB for DOSI Editique. Inserting from CSV...
+[2025-05-02 14:49:02][ERROR] Error processing group DOSI Editique : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:02][INFO] Processing group: DOSI Etudes AMOA
+[2025-05-02 14:49:03][WARN] No users found in DB for DOSI Etudes AMOA. Inserting from CSV...
+[2025-05-02 14:49:03][ERROR] Error processing group DOSI Etudes AMOA : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:03][INFO] Processing group: DOSI Etudes Assurance
+[2025-05-02 14:49:03][WARN] No users found in DB for DOSI Etudes Assurance. Inserting from CSV...
+[2025-05-02 14:49:03][ERROR] Error processing group DOSI Etudes Assurance : Impossible de traiter la transformation d'argument sur le paramètre « Parameters ». Impossible de convertir la valeur « System.Object[] » du type « System.Object[] » en type « System.Collections.Hashtable ».
+[2025-05-02 14:49:03][INFO] Processing group: DOSI Etudes CMOP
+[2025-05-02 14:49:03][INFO] SQL connection closed.

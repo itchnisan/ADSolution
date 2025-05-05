@@ -1,0 +1,23 @@
+[2025-05-05 11:11:49][INFO] === Script started ===
+[2025-05-05 11:11:49][INFO] Module base_func loaded successfully.
+[2025-05-05 11:11:49][INFO] SQL connection opened.
+[2025-05-05 11:11:49][INFO] Processing group: DOSI ASR DFS
+[2025-05-05 11:11:50][WARN] No users found in DB for DOSI ASR DFS. Inserting from CSV...
+[2025-05-05 11:11:50][ERROR] Error processing group DOSI ASR DFS : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 11:11:50][INFO] Processing group: DOSI cadres encadrants
+[2025-05-05 11:11:50][WARN] No users found in DB for DOSI cadres encadrants. Inserting from CSV...
+[2025-05-05 11:11:50][ERROR] Error processing group DOSI cadres encadrants : Le terme « begin » n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct et réessayez.
+[2025-05-05 11:11:50][INFO] Processing group: DOSI CDI
+[2025-05-05 11:11:50][WARN] No users found in DB for DOSI CDI. Inserting from CSV...
+[2025-05-05 11:11:51][ERROR] Error processing group DOSI CDI : Le terme « begin » n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct et réessayez.
+[2025-05-05 11:11:51][INFO] Processing group: DOSI commun
+[2025-05-05 11:11:51][WARN] No users found in DB for DOSI commun. Inserting from CSV...
+[2025-05-05 11:11:51][ERROR] Error processing group DOSI commun : Impossible de lier l'argument au paramètre « FilteredUsers », car il a la valeur Null.
+[2025-05-05 11:11:51][INFO] Processing group: DOSI Coordination
+[2025-05-05 11:11:51][WARN] No users found in DB for DOSI Coordination. Inserting from CSV...
+[2025-05-05 11:11:51][ERROR] Error processing group DOSI Coordination : Le terme « begin » n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct et réessayez.
+[2025-05-05 11:11:51][INFO] Processing group: DOSI DGA
+[2025-05-05 11:11:52][WARN] No users found in DB for DOSI DGA. Inserting from CSV...
+[2025-05-05 11:11:52][ERROR] Error processing group DOSI DGA : Le terme « begin » n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct et réessayez.
+[2025-05-05 11:11:52][INFO] Processing group: DOSI Editique
+[2025-05-05 11:11:52][INFO] SQL connection closed.
